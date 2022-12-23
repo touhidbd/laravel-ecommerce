@@ -86,9 +86,12 @@ class ProductController extends Controller
     public function edit(int $product_id)
     {
         $categories = Categories::where('status', '0')->get();
-        $brands = Brands::where('status', '0')->get();
-        $colors = Color::where('status', '0')->get();
+        $brands = Brands::where('status', '0')->get();   
         $product = Product::findOrFail($product_id);
+
+        $product_color = $product->productColor->pluck('color_id')->toArray();  
+        $colors = Color::whereNotIn('id', $product_color)->get();      
+
         return view('admin.products.edit', compact('product', 'categories', 'brands', 'colors'));
     }
 
@@ -138,7 +141,7 @@ class ProductController extends Controller
             {
                 foreach($request->color as $key => $color)
                 {
-                    $product->productColor()->update([
+                    $product->productColor()->create([
                         'product_id'    => $product->id,
                         'color_id'      => $color,
                         'quantity'      => $request->colorquantity[$key] ?? 0
@@ -176,7 +179,29 @@ class ProductController extends Controller
                 'status'    => 500,
                 'message'   => 'Image not found!'
             ]);  
-        }
- 
+        } 
+    }
+
+    public function updateProductColor(Request $request, $color_id)
+    {
+        $productColorData = Product::findOrFail($request->product_id)->productColor()->where('id', $color_id)->first();
+        $productColorData->update([
+            'quantity'  => $request->quantity
+        ]);
+        return response()->json([
+            'status'    => 200,
+            'message'   =>  'Product color quantity udpate successfully!'
+        ]); 
+    }
+
+    public function deleteProductColor(Request $request, $color_id)
+    {
+        $productColorData = Product::findOrFail($request->product_id)->productColor()->where('id', $color_id)->first();
+        $productColorData->delete();
+
+        return response()->json([
+            'status'    => 200,
+            'message'   =>  'Product color deleted successfully!'
+        ]); 
     }
 }

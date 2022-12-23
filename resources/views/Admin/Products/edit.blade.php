@@ -152,12 +152,12 @@
                         </div>
                         <div class="tab-pane fade" id="product-color" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
                             <h4 class="mb-4 border-bottom pb-2">Product Color</h4>
-                            <div class="row">
+                            <div class="row" class="not-used-color">
                                 @forelse ($colors as $color)                                    
                                     <div class="col-md-3 mb-4">
                                         <div class="border p-3">
                                             <div class="input-field mb-3">
-                                                <input id="color-{{ $color->id }}" type="checkbox" name="color[{{ $color->id }}]" value="{{ $color->id }}" @if($color->id) checked @endif>
+                                                <input id="color-{{ $color->id }}" type="checkbox" name="color[{{ $color->id }}]" value="{{ $color->id }}">
                                                 <label for="color-{{ $color->id }}">{{ $color->name }}</label>
                                             </div>
                                             <div class="input-field mb-3">
@@ -167,9 +167,42 @@
                                         </div>
                                     </div>
                                 @empty
-                                    <h2>No Colors Found!</h2>
+                                    <h2 class="text-center text-danger mb-5">No Colors Found!</h2>
                                 @endforelse
                             </div>
+                            @if ($product->productColor->count() > 0)
+                            <div class="table-responsive">
+                                <table class="table table-borderd product-color-list">
+                                    <thead>
+                                        <tr>
+                                            <th>Color Name</th>
+                                            <th>Quantity</th>
+                                            <th>Delete</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($product->productColor as $product_color)
+                                            <tr class="product-color-tr">
+                                                <td>
+                                                    @if ($product_color->color)
+                                                    {{ $product_color->color->name }}
+                                                    @else
+                                                    No Color Found
+                                                    @endif                                                    
+                                                </td>
+                                                <td>
+                                                    <div class="input-group mb-3" style="width: 150px">
+                                                        <input type="number" value="{{ $product_color->quantity }}" class="form-control form-control-sm productColorQuantity">
+                                                        <button value="{{ $product_color->id }}" class="updateProductColor btn btn-primary btn-sm text-white" type="button">Update</button>
+                                                    </div>
+                                                </td>
+                                                <td><button value="{{ $product_color->id }}" class="deleteProductColor btn btn-danger btn-sm text-white" type="button">Delete</button></td>
+                                            </tr>                                            
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            @endif
                         </div>
                         <div class="tab-pane fade" id="seo-tags" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
                             <h4 class="mb-4 border-bottom pb-2">SEO Tags</h4>
@@ -232,6 +265,8 @@
 @endif
 <script>        
     $(document).ready(function(){
+
+        // Delete Image
         $(document).on('click', '.deleteImage', function(e){
             e.preventDefault();  
 
@@ -247,7 +282,7 @@
             e.preventDefault(); 
             var image_id = $(this).val();
 
-             $.ajaxSetup({
+            $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
@@ -268,6 +303,82 @@
                         timer: 2000,
                         title: response.message,
                     })
+                }
+            });
+        });
+
+        // Update & Delete Color
+        $(document).on('click', '.updateProductColor', function(e){
+            e.preventDefault(); 
+
+            var product_id = '{{ $product->id }}';
+            var color_id = $(this).val();
+            var quantity = $(this).closest('.product-color-tr').find('.productColorQuantity').val();
+
+            if(quantity <= 0)
+            {
+                alert('Quantity is required!');
+                return false
+            }
+            
+            var data = {
+                'product_id'    : product_id,
+                'color_id'      : color_id,
+                'quantity'      : quantity,
+            }
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: 'POST',
+                url: '{{ url("admin/product-color") }}/'+color_id,
+                data: data,
+                success: function(response) {
+                    Swal.fire({
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        title: response.message,
+                    });
+                }
+            });
+        });
+
+        $(document).on('click', '.deleteProductColor', function(e){
+            e.preventDefault();
+
+            confirm('Do you want to delete this color?');
+
+            var product_id = '{{ $product->id }}';
+            var color_id = $(this).val();
+            
+            var data = {
+                'product_id'    : product_id,
+                'color_id'      : color_id,
+            }
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: 'POST',
+                url: '{{ url("admin/product-color") }}/'+color_id+'/delete',
+                data: data,                
+                success: function(response) {
+                    $('.product-color-list').load(location.href + " .product-color-list");
+                    Swal.fire({
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        title: response.message,
+                    });
                 }
             });
         });
