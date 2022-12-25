@@ -45,10 +45,17 @@
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="pages/charts/chartjs.html">
-          <i class="mdi mdi-chart-pie menu-icon"></i>
-          <span class="menu-title">Charts</span>
+        <a class="nav-link" data-bs-toggle="collapse" href="#ui-slider" aria-expanded="false" aria-controls="ui-slider">
+          <i class="mdi mdi-image-multiple menu-icon"></i>
+          <span class="menu-title">Home Slider</span>
+          <i class="menu-arrow"></i>
         </a>
+        <div class="collapse" id="ui-slider">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="{{ url('admin/add-slider') }}">Add Slider</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ url('admin/sliders') }}">Sliders</a></li>
+          </ul>
+        </div>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="pages/tables/basic-table.html">

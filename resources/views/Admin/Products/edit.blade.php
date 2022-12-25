@@ -152,7 +152,7 @@
                         </div>
                         <div class="tab-pane fade" id="product-color" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
                             <h4 class="mb-4 border-bottom pb-2">Product Color</h4>
-                            <div class="row" class="not-used-color">
+                            <div class="row" id="product-color-list">
                                 @forelse ($colors as $color)                                    
                                     <div class="col-md-3 mb-4">
                                         <div class="border p-3">
@@ -372,13 +372,14 @@
                 url: '{{ url("admin/product-color") }}/'+color_id+'/delete',
                 data: data,                
                 success: function(response) {
-                    $('.product-color-list').load(location.href + " .product-color-list");
                     Swal.fire({
                         icon: 'success',
                         showConfirmButton: false,
                         timer: 2000,
                         title: response.message,
                     });
+                    $('#product-color-list').load(location.href + " #product-color-list");
+                    $('.product-color-list').load(location.href + " .product-color-list");
                 }
             });
         });

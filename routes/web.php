@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -43,6 +44,14 @@ Route::prefix('admin')->middleware('auth', 'isAdmin')->group(function(){
         Route::post('/delete-image', 'deleteimage');
         Route::post('/product-color/{color_id}', 'updateProductColor');
         Route::get('/product-color/{color_id}/delete', 'deleteProductColor');
+    });
+
+    Route::controller(SliderController::class)->group(function() {
+        Route::get('/sliders', 'index');
+        Route::get('/add-slider', 'create');
+        Route::post('/slider', 'store');
+        Route::get('/slider/{slider}/edit', 'edit');
+        Route::put('/slider/{slider}', 'update');
     });
 
     // Color
