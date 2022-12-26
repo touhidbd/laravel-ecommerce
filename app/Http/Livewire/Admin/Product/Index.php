@@ -41,7 +41,7 @@ class Index extends Component
 
     public function render()
     {        
-        $products = Product::orderBy('created_at', 'DESC')->paginate(2);
+        $products = Product::orderBy('created_at', 'DESC')->paginate(10);
         return view('livewire.admin.product.index', ['products' => $products]);
     }
 }

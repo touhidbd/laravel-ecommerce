@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Slider;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 use App\Http\Requests\Admin\SliderFormRequest;
 
 class SliderController extends Controller
@@ -57,7 +58,7 @@ class SliderController extends Controller
 
         if($request->hasFile('image'))
         {
-            $destination = 'uploads/slider/'.$category->image;
+            $destination = 'uploads/slider/'.$slider->image;
             if(File::exists($destination))
             {
                 File::delete($destination);

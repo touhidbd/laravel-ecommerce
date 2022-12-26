@@ -23,7 +23,7 @@ return new class extends Migration
             $table->longText('description')->nullable();
 
             $table->integer('orginal_price');
-            $table->integer('selling_price');
+            $table->integer('selling_price')->nullable();
             $table->integer('quantity');
             $table->tinyInteger('trending')->nullable()->default('0')->comment('1=Trending,0=Not-Trending');
             $table->tinyInteger('status')->nullable()->default('0')->comment('1=Hidden,0=Visible');

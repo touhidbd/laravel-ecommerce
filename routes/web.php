@@ -1,19 +1,19 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
-
-
-Route::get('/', function () {
-    return view('welcome');
-});
+use App\Http\Controllers\Frontend\FrontendController;
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Front End
+Route::get('/', [FrontendController::class, 'index']);
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::prefix('admin')->middleware('auth', 'isAdmin')->group(function(){
     // Dashboard

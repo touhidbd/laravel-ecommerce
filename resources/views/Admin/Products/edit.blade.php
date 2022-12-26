@@ -67,6 +67,7 @@
                                 <div class="col-md-3">
                                     <label for="category_id" class="mb-2">Category</label>
                                     <select name="category_id" class="form-control">
+                                        <option selected>Select Category</option>
                                         @foreach ($categories as $category)
                                             <option value="{{ $category->id }}" {{ $product->category_id ==  $category->id ? 'selected':''}}>{{ $category->name }}</option>
                                         @endforeach                            
@@ -76,6 +77,7 @@
                                 <div class="col-md-3">
                                     <label for="brand" class="mb-2">Brand</label>
                                     <select name="brand" class="form-control">
+                                        <option selected>Select Brand</option>
                                         @foreach ($brands as $brand)
                                             <option value="{{ $brand->id }}"{{ $product->brand ==  $brand->id ? 'selected':''}}>{{ $brand->name }}</option>
                                         @endforeach                            
