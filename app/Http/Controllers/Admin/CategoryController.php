@@ -38,9 +38,6 @@ class CategoryController extends Controller
             $file->move('uploads/category/',$filename);
             $category->image = $filename;
         }
-        else {
-
-        }
 
         $category->meta_title = $validatedData['meta_title'];
         $category->meta_description = $validatedData['meta_description'];

@@ -22,6 +22,7 @@
                                 <tr>
                                     <th>Name</th>
                                     <th>Slug</th>
+                                    <th>Image</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -31,6 +32,13 @@
                                 <tr class="{{$brand->status == '1' ? 'table-danger':''}}">
                                     <td>{{ $brand->name }}</td>
                                     <td>{{ $brand->slug }}</td>
+                                    <td>
+                                        @if ($brand->image)
+                                            <img src="{{ asset('storage/brand/'.$brand->image) }}" alt="{{ $brand->name }}">
+                                        @else
+                                        No image
+                                        @endif
+                                    </td>
                                     <td>{{ $brand->status == '1' ? 'Hidden':'Visible' }}</td>
                                     <td>
                                         <a href="#" class="btn btn-sm btn-success text-white" data-bs-toggle="modal" data-bs-target="#updateBrandModal" wire:click="editBrand({{$brand->id}})">Edit</a>

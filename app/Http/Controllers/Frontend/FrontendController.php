@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Models\Brands;
 use App\Models\Slider;
 use App\Models\Product;
 use App\Models\Categories;
@@ -15,6 +16,7 @@ class FrontendController extends Controller
         $sliders = Slider::where('status', '0')->get();
         $categories = Categories::where('status', '0')->limit(3)->get();
         $products = Product::where('status', '0')->get();
-        return view('frontend.index', compact('sliders', 'categories', 'products'));
+        $brands = Brands::where('status', '0')->get();
+        return view('frontend.index', compact('sliders', 'categories', 'products', 'brands'));
     }
 }

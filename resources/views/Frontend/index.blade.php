@@ -222,12 +222,9 @@
                 </p>
             </div>
             <div class="brand-slider">
-                <div class="brand-item"><img src="{{ asset('assets') }}/img/brand-1.png" alt=""></div>
-                <div class="brand-item"><img src="{{ asset('assets') }}/img/brand-2.png" alt=""></div>
-                <div class="brand-item"><img src="{{ asset('assets') }}/img/brand-3.png" alt=""></div>
-                <div class="brand-item"><img src="{{ asset('assets') }}/img/brand-4.png" alt=""></div>
-                <div class="brand-item"><img src="{{ asset('assets') }}/img/brand-5.png" alt=""></div>
-                <div class="brand-item"><img src="{{ asset('assets') }}/img/brand-6.png" alt=""></div>
+                @foreach ($brands as $brand)
+                <div class="brand-item"><img src="{{ asset('storage/brand/'.$brand->image) }}" alt="{{ $brand->name }}"></div>
+                @endforeach                
             </div>
         </div>
     </div>
