@@ -88,7 +88,7 @@
                             <a href="my-account.html" class="dropdown-item">My Account</a>
                         </div>
                     </div>
-                    <a href="contact.html" class="nav-item nav-link">Contact Us</a>
+                    <a href="{{ url('contact-us') }}" class="nav-item nav-link">Contact Us</a>
                 </div>
             </div>
         </nav>

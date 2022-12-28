@@ -14,6 +14,8 @@ Auth::routes();
 Route::get('/', [FrontendController::class, 'index']);
 Route::get('/collections', [FrontendController::class, 'categories']);
 Route::get('/collections/{category_slug}', [FrontendController::class, 'products']);
+Route::get('/contact-us', [FrontendController::class, 'contact']);
+Route::post('/contact', [FrontendController::class, 'send_mail']);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 

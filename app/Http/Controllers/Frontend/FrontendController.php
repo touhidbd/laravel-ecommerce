@@ -8,6 +8,8 @@ use App\Models\Product;
 use App\Models\Categories;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
+use App\Http\Requests\Frontend\ContactFormRequest;
 
 class FrontendController extends Controller
 {
@@ -42,5 +44,34 @@ class FrontendController extends Controller
         {
             return redirect()->back()->with('status', 'Category not found!');
         }
+    }
+
+    public function contact()
+    {
+        return view('frontend.contact.index');
+    }
+
+    public function send_mail(ContactFormRequest $request)
+    {
+        $validatedData = $request->validated();
+        
+        $name = $validatedData['name'];
+        $email = $validatedData['email'];
+        $subject = $validatedData['subject'];
+        $user_message = $validatedData['message'];
+
+        $data = [
+            'name' => $name,
+            'email' => $email,
+            'subject' => $subject,
+            'user_message' => $user_message
+        ];
+        
+        Mail::send('frontend.contact.success', $data, function($message) {
+            $message->from('no-reply@tcoderbd.com', 'tCoder Bangladesh')
+            ->to('touhidul.sadeek@gmail.com', 'Touhidul Sadeek')->subject('New Contact Form Submission | eCommerce Laravel');
+        });
+
+        return redirect('/contact-us')->with('status', 'Thank you for your interest! We will contact with you as soon as possible.');
     }
 }
