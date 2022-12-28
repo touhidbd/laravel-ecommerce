@@ -29,10 +29,14 @@ class FrontendController extends Controller
     public function products($category_slug)
     {
         $category = Categories::where('slug', $category_slug)->first();
+        $categories = Categories::where('status', '0')->limit(6)->get();
+        $brands = Brands::where('status', '0')->limit(6)->get();
+        
         if($category)
         {
             $products = $category->products()->get();
-            return view('frontend.collections.Products.index', compact('products', 'category'));
+            $featured_product = Product::where('status', '0')->where('trending', '1')->where('category_id', '!=' , $category->id)->inRandomOrder()->first();
+            return view('frontend.collections.Products.index', compact('products', 'category', 'categories', 'brands', 'featured_product'));
         }
         else
         {
