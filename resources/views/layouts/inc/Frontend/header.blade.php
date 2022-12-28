@@ -34,9 +34,12 @@
                     <div class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->name }}</a>
                         <div class="dropdown-menu">
+                            @if (Auth::user()->role_as == 1)
                             <a href="{{ url('admin/dashboard') }}" class="dropdown-item">{{ __('Dashboard') }}</a>
-                            <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+                            @endif                            
 
+                            <a href="{{ url('admin/my-account') }}" class="dropdown-item">{{ __('My Account') }}</a>
+                            <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>
@@ -44,8 +47,14 @@
                     </div> 
                     @endguest
                     <div class="cart">
-                        <i class="fa fa-cart-plus"></i>
-                        <span>(0)</span>
+                        <a href="{{ url('/cart') }}">
+                            <i class="fa fa-cart-plus"></i>
+                            <span>(0)</span>
+                        </a> |
+                        <a href="{{ url('/wishlist') }}">
+                            <i class="fa fa-heart"></i>
+                            <span>(0)</span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -66,7 +75,7 @@
             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                 <div class="navbar-nav m-auto">
                     <a href="index.html" class="nav-item nav-link active">Home</a>
-                    <a href="product-list.html" class="nav-item nav-link">Products</a>
+                    <a href="{{ url('/collections') }}" class="nav-item nav-link">Collections</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
                         <div class="dropdown-menu">

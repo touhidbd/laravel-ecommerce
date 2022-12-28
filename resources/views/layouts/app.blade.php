@@ -9,6 +9,10 @@
 
     <title>@yield('title')</title>
     
+    <meta name="description" content="@yield('description')">
+    <meta name="keywords" content="@yield('keywords')">
+    <meta name="author" content="Touhidul Sadeek">
+    
     <link rel="shortcut icon" href="{{ asset('admin/images/favicon.png') }}" />
 
     <!-- Fonts -->

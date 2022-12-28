@@ -1,5 +1,7 @@
 @extends('layouts.app')
 @section('title', 'Home | eCommerce Laravel Website')
+@section('description', '')
+@section('keywords', '')
 
 @section('content')
 
@@ -72,7 +74,7 @@
                     <div class="col-md-4">
                         <div class="category-img">
                             <img src="{{ asset('uploads/category/'.$category->image) }}" />
-                            <a class="category-name" href="{{ url('category/'.$category->slug) }}">
+                            <a class="category-name" href="{{ url('collections/'.$category->slug) }}">
                                 <h2>{{ $category->name }}</h2>
                             </a>
                         </div>
@@ -99,22 +101,24 @@
                     <div class="col-lg-3">
                         <div class="product-item">
                             <div class="product-image">
-                                <a href="{{ url($product->category->slug.'/'.$product->slug) }}">
-                                    @foreach ($product->productImages as $key => $productImage)
-                                    <img src="{{ asset($productImage->image) }}" alt="{{ $product->name }}">
-                                    @php 
-                                        $i = 0; $i++; if($i == 1) break;
-                                    @endphp
-                                    @endforeach
+                                <a href="{{ url('collections/'.$product->category->slug.'/'.$product->slug) }}">
+                                    <img src="{{ asset($product->productImages[0]->image) }}" alt="{{ $product->name }}">
+                                    @if ($product->quantity > 0)
+                                        <span class="stock bg-success">In Stock</span>
+                                    @else
+                                        <span class="stock bg-danger">Out of Stock</span>
+                                    @endif    
                                 </a>
                                 <div class="product-action">
+                                    @if ($product->quantity > 0)
                                     <a href="#"><i class="fa fa-cart-plus"></i></a>
+                                    @endif
                                     <a href="#"><i class="fa fa-heart"></i></a>
-                                    <a href="#"><i class="fa fa-search"></i></a>
+                                    <a href="{{ url('collections/'.$product->category->slug.'/'.$product->slug) }}"><i class="fa fa-search"></i></a>
                                 </div>
                             </div>
                             <div class="product-content">
-                                <div class="title"><a href="{{ url($product->category->slug.'/'.$product->slug) }}">{{ $product->name }}</a></div>
+                                <div class="title"><a href="{{ url('collections/'.$product->category->slug.'/'.$product->slug) }}">{{ $product->name }}</a></div>
                                 <div class="ratting">
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
@@ -172,22 +176,24 @@
                     <div class="col-lg-3">
                         <div class="product-item">
                             <div class="product-image">
-                                <a href="{{ url($product->category->slug.'/'.$product->slug) }}">
-                                    @foreach ($product->productImages as $key => $productImage)
-                                    <img src="{{ asset($productImage->image) }}" alt="{{ $product->name }}">
-                                    @php 
-                                        $i = 0; $i++; if($i == 1) break;
-                                    @endphp
-                                    @endforeach
+                                <a href="{{ url('collections/'.$product->category->slug.'/'.$product->slug) }}">
+                                    <img src="{{ asset($product->productImages[0]->image) }}" alt="{{ $product->name }}">
+                                    @if ($product->quantity > 0)
+                                        <span class="stock bg-success">In Stock</span>
+                                    @else
+                                        <span class="stock bg-danger">Out of Stock</span>
+                                    @endif    
                                 </a>
                                 <div class="product-action">
+                                    @if ($product->quantity > 0)
                                     <a href="#"><i class="fa fa-cart-plus"></i></a>
+                                    @endif
                                     <a href="#"><i class="fa fa-heart"></i></a>
-                                    <a href="#"><i class="fa fa-search"></i></a>
+                                    <a href="{{ url('collections/'.$product->category->slug.'/'.$product->slug) }}"><i class="fa fa-search"></i></a>
                                 </div>
                             </div>
                             <div class="product-content">
-                                <div class="title"><a href="{{ url($product->category->slug.'/'.$product->slug) }}">{{ $product->name }}</a></div>
+                                <div class="title"><a href="{{ url('collections/'.$product->category->slug.'/'.$product->slug) }}">{{ $product->name }}</a></div>
                                 <div class="ratting">
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
