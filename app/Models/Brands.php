@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Product;
+use App\Models\Categories;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Illuminate\Database\Eloquent\Model;
@@ -18,6 +19,7 @@ class Brands extends Model
         'slug',
         'image',
         'status',
+        'category_id'
     ];
     
     use HasSlug;
@@ -30,5 +32,10 @@ class Brands extends Model
     public function products()
     {
         return $this->hasMany(Product::class, 'brand', 'id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Categories::class, 'category_id', 'id');
     }
 }

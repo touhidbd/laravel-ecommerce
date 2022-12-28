@@ -14,6 +14,16 @@
                         @error('name')<small class="text-danger">{{ $message }}</small>@enderror
                     </div>
                     <div class="mb-3">
+                        <label class="mb-2" for="category">Category</label>
+                        <select wire:model.defer="category_id" id="category" class="form-control" required>
+                            <option value="">Select Category</option>
+                            @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('category_id')<small class="text-danger">{{ $message }}</small>@enderror
+                    </div>
+                    <div class="mb-3">
                         <label class="mb-2" for="image">Brand Image</label>
                         <input class="form-control" type="file" id="image" wire:model.defer="image">
                         @error('image')<small class="text-danger">{{ $message }}</small>@enderror
@@ -57,6 +67,16 @@
                             <label class="mb-2" for="name">Brand Name</label>
                             <input class="form-control" type="text" id="name" wire:model.defer="name">
                             @error('name')<small class="text-danger">{{ $message }}</small>@enderror
+                        </div>
+                        <div class="mb-3">
+                            <label class="mb-2" for="category">Category</label>
+                            <select wire:model.defer="category_id" id="category" class="form-control" required>
+                                <option value="">Select Category</option>
+                                @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('category_id')<small class="text-danger">{{ $message }}</small>@enderror
                         </div>
                         <div class="mb-3">
                             <label class="mb-2" for="slug">Brand Slug</label>

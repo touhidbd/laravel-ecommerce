@@ -41,3 +41,36 @@
     right: 10px;
     font-weight: 300;
 }
+
+.product-item .product-image .brand {
+    color: #443a3a;
+    font-size: 12px;
+    padding: 3px 7px;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    font-weight: 300;
+    -webkit-transform: translate(-50%, 0);
+    transform: translate(-50%, 0);
+}
+
+.product-item .product-image .brand strong {
+    font-weight: 700;
+    color: #9b5b11;
+}
+
+.sidebar-widget ul li input {
+    margin-right: 5px;
+    position: relative;
+    top: 2px;
+}
+
+.sidebar-widget ul li label {
+    color: #3F69AA;
+    cursor: pointer;
+}
+
+.custom-pagination .pagination {
+    justify-content: center;
+}

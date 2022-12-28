@@ -22,6 +22,7 @@
                                 <tr>
                                     <th>Name</th>
                                     <th>Slug</th>
+                                    <th>Category</th>
                                     <th>Image</th>
                                     <th>Status</th>
                                     <th>Action</th>
@@ -32,6 +33,13 @@
                                 <tr class="{{$brand->status == '1' ? 'table-danger':''}}">
                                     <td>{{ $brand->name }}</td>
                                     <td>{{ $brand->slug }}</td>
+                                    <td>
+                                        @if ($brand->category)
+                                        {{ $brand->category->name }}
+                                        @else
+                                            No Category
+                                        @endif
+                                    </td>
                                     <td>
                                         @if ($brand->image)
                                             <img src="{{ asset('storage/brand/'.$brand->image) }}" alt="{{ $brand->name }}">

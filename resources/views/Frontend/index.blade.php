@@ -107,7 +107,8 @@
                                         <span class="stock bg-success">In Stock</span>
                                     @else
                                         <span class="stock bg-danger">Out of Stock</span>
-                                    @endif    
+                                    @endif     
+                                    <span class="brand bg-warning">Brand: <strong>{{ $product->brands->name }}</strong></span> 
                                 </a>
                                 <div class="product-action">
                                     @if ($product->quantity > 0)
@@ -182,7 +183,8 @@
                                         <span class="stock bg-success">In Stock</span>
                                     @else
                                         <span class="stock bg-danger">Out of Stock</span>
-                                    @endif    
+                                    @endif     
+                                    <span class="brand bg-warning">Brand: <strong>{{ $product->brands->name }}</strong></span> 
                                 </a>
                                 <div class="product-action">
                                     @if ($product->quantity > 0)

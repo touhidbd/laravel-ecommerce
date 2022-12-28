@@ -32,13 +32,11 @@ class FrontendController extends Controller
     {
         $category = Categories::where('slug', $category_slug)->first();
         $categories = Categories::where('status', '0')->limit(6)->get();
-        $brands = Brands::where('status', '0')->limit(6)->get();
         
         if($category)
         {
-            $products = $category->products()->get();
             $featured_product = Product::where('status', '0')->where('trending', '1')->where('category_id', '!=' , $category->id)->inRandomOrder()->first();
-            return view('frontend.collections.Products.index', compact('products', 'category', 'categories', 'brands', 'featured_product'));
+            return view('frontend.collections.Products.index', compact('category', 'categories', 'featured_product'));
         }
         else
         {
@@ -68,8 +66,7 @@ class FrontendController extends Controller
         ];
         
         Mail::send('frontend.contact.success', $data, function($message) {
-            $message->from('no-reply@tcoderbd.com', 'tCoder Bangladesh')
-            ->to('touhidul.sadeek@gmail.com', 'Touhidul Sadeek')->subject('New Contact Form Submission | eCommerce Laravel');
+            $message->from('no-reply@tcoderbd.com', 'tCoder Bangladesh')->to('touhidul.sadeek@gmail.com', 'Touhidul Sadeek')->subject('New Contact Form Submission | eCommerce Laravel');
         });
 
         return redirect('/contact-us')->with('status', 'Thank you for your interest! We will contact with you as soon as possible.');

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Brands;
 use App\Models\Product;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
@@ -33,5 +34,10 @@ class Categories extends Model
     public function products()
     {
         return $this->hasMany(Product::class, 'category_id', 'id');
+    }
+
+    public function brands()
+    {
+        return $this->hasMany(Brands::class, 'category_id', 'id')->where('status', '0');
     }
 }
