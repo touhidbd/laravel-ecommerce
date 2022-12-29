@@ -93,6 +93,16 @@
                 </ul>
             </div>
             @endif  
+                        
+            <div class="sidebar-widget price">
+                <h2 class="title">Price</h2>
+                <label class="d-block">
+                    <input type="radio" name="priceSort" wire:model="price" value="high-to-low" checked> High to Low
+                </label>
+                <label class="d-block">
+                    <input type="radio" name="priceSort" wire:model="price" value="low-to-high"> Low to High
+                </label>
+            </div>
             
             @if ($categories->count() > 0)                    
             <div class="sidebar-widget category">

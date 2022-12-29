@@ -11,12 +11,13 @@ class Index extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
 
-    public $category, $categories, $featuredproduct, $brand = [], $short, $search;
+    public $category, $categories, $featuredproduct, $brand = [], $short, $search, $price;
 
     protected $queryString = [
         'brand' => ['except' => '', 'as' => 'brand'],
         'short',
-        'search'
+        'search',
+        'price'
     ];
 
     public function mount($category, $categories, $featuredproduct)
@@ -37,6 +38,14 @@ class Index extends Component
                             })
                             ->when($this->brand, function($q){
                                 $q->whereIn('brand', $this->brand);
+                            })
+                            ->when($this->price, function($q){
+                                $q->when($this->price == 'high-to-low', function($q2){
+                                    $q2->orderBy('selling_price', 'DESC');
+                                })
+                                ->when($this->price == 'low-to-high', function($q2){
+                                    $q2->orderBy('selling_price', 'ASC');
+                                });
                             })
                             ->where('status', '0')
                             ->paginate(9);

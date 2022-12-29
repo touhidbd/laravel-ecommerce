@@ -74,3 +74,13 @@
 .custom-pagination .pagination {
     justify-content: center;
 }
+
+.sidebar-widget.price input {
+    position: relative;
+    top: 2px;
+}
+
+.sidebar-widget.price label {
+    color: #3F69AA;
+    cursor: pointer;
+}
