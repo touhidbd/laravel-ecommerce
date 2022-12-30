@@ -12,6 +12,8 @@ Auth::routes();
 
 // Front End
 Route::controller(FrontendController::class)->group(function() {
+
+    //Pages
     Route::get('/', 'index');    
     Route::get('/contact-us', 'contact');
     Route::post('/contact', 'send_mail');
@@ -20,6 +22,8 @@ Route::controller(FrontendController::class)->group(function() {
     Route::get('/collections', 'categories');
     Route::get('/collections/{category_slug}', 'products');
     Route::get('/collections/{category_slug}/{product_slug}', 'productView');
+
+    
 });
 
 

@@ -1,4 +1,5 @@
 <div>
+    
     <!-- Breadcrumb Start -->
     <div class="breadcrumb-wrap">
         <div class="container">
@@ -12,10 +13,19 @@
     </div>
     <!-- Breadcrumb End -->
 
+
+
     <!-- Product Detail Start -->
     <div class="product-detail">
         <div class="container">
             <div class="row">
+                @if (session()->has('status')) 
+                <div class="col-md-12">
+                    <div class="alert alert-success" role="alert">
+                        {{ session("status") }}
+                    </div>
+                </div>
+                @endif
                 <div class="col-lg-9">
                     <div class="row align-items-center product-detail-top">
                         <div class="col-md-5">
@@ -73,7 +83,10 @@
                                     @if ($product->quantity > 0)
                                     <a href="#"><i class="fa fa-cart-plus"></i></a>
                                     @endif
-                                    <a href="#"><i class="fa fa-heart"></i></a>
+                                    <button wire:click="addwishlist({{ $product->id }})" type="button">
+                                        <span wire:loading.remove><i class="fa fa-heart"></i></span>
+                                        <span wire:loading wire:target="addwishlist"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
