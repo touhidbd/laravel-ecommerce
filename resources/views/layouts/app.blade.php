@@ -22,6 +22,8 @@
     @yield('styles')
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" rel="stylesheet">
+    <link href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" rel="stylesheet">
     <link href="{{ asset('assets/lib/slick/slick.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/lib/slick/slick-theme.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
@@ -43,11 +45,20 @@
     
     <!-- Scripts -->
     <script src="{{ asset('assets/js/jquery-3.6.1.min.js') }}"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>    
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
     <script src="{{ asset('assets/lib/easing/easing.min.js') }}"></script>
     <script src="{{ asset('assets/lib/slick/slick.min.js') }}"></script>    
-    <script src="{{ asset('assets/js/main.js') }}"></script>    
+    <script src="{{ asset('assets/js/main.js') }}"></script>
+        
+    <script>
+        window.addEventListener('message', event => {
+            alertify.set('notifier','position', 'top-right');
+            alertify.notify(event.detail.text, event.detail.type);
+        });
+    </script>
+    
     @yield('scripts')
     @livewireScripts
 </body>

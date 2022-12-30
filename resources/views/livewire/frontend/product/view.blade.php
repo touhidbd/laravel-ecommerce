@@ -19,13 +19,6 @@
     <div class="product-detail">
         <div class="container">
             <div class="row">
-                @if (session()->has('status')) 
-                <div class="col-md-12">
-                    <div class="alert alert-success" role="alert">
-                        {{ session("status") }}
-                    </div>
-                </div>
-                @endif
                 <div class="col-lg-9">
                     <div class="row align-items-center product-detail-top">
                         <div class="col-md-5">
