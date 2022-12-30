@@ -11,11 +11,17 @@ use App\Http\Controllers\Frontend\FrontendController;
 Auth::routes();
 
 // Front End
-Route::get('/', [FrontendController::class, 'index']);
-Route::get('/collections', [FrontendController::class, 'categories']);
-Route::get('/collections/{category_slug}', [FrontendController::class, 'products']);
-Route::get('/contact-us', [FrontendController::class, 'contact']);
-Route::post('/contact', [FrontendController::class, 'send_mail']);
+Route::controller(FrontendController::class)->group(function() {
+    Route::get('/', 'index');    
+    Route::get('/contact-us', 'contact');
+    Route::post('/contact', 'send_mail');
+
+    // Collection    
+    Route::get('/collections', 'categories');
+    Route::get('/collections/{category_slug}', 'products');
+    Route::get('/collections/{category_slug}/{product_slug}', 'productView');
+});
+
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 

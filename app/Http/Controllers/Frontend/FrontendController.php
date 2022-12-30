@@ -36,11 +36,34 @@ class FrontendController extends Controller
         if($category)
         {
             $featured_product = Product::where('status', '0')->where('trending', '1')->where('category_id', '!=' , $category->id)->inRandomOrder()->first();
-            return view('frontend.collections.Products.index', compact('category', 'categories', 'featured_product'));
+            return view('frontend.collections.products.index', compact('category', 'categories', 'featured_product'));
         }
         else
         {
             return redirect()->back()->with('status', 'Category not found!');
+        }
+    }
+
+    public function productView(string $category_slug, string $product_slug)
+    {
+        $category = Categories::where('slug', $category_slug)->first();
+        
+        if($category)
+        {
+            $featured_product = Product::where('status', '0')->where('trending', '1')->where('category_id', '!=' , $category->id)->inRandomOrder()->first();
+            $product = $category->products()->where('slug', $product_slug)->where('status', '0')->first();
+            if($product)
+            {
+                return view('frontend.collections.products.view', compact('category', 'product', 'featured_product'));
+            }
+            else
+            {
+                return redirect('/')->with('status', 'Product not found!');
+            }            
+        }
+        else
+        {
+            return redirect('/')->with('status', 'Category not found!');
         }
     }
 
