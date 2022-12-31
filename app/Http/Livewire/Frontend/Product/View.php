@@ -11,8 +11,8 @@ use Illuminate\Support\Facades\Auth;
 
 class View extends Component
 {
-    public $category, $product, $featured_product, $product_id;
-
+    public $category, $product, $featured_product, $product_id, $quantityCount = 1;
+    
     public function mount($product, $category, $featured_product)
     {
         $this->product = $product;
@@ -75,6 +75,30 @@ class View extends Component
             ]);
             return false;
         }
+    }
+
+    public function decrementQuantity()
+    {
+        if($this->quantityCount > 1) {
+            $this->quantityCount--;
+        } else {
+            $this->dispatchBrowserEvent('message', [
+                'text'      => 'Minimun quantity 1!',
+                'type'      => 'error'
+            ]);
+        }
+    }
+
+    public function incrementQuantity($quantity)
+    {
+        if($this->quantityCount < $quantity) {
+            $this->quantityCount++;
+        } else {
+            $this->dispatchBrowserEvent('message', [
+                'text'      => 'Maximum quantity '.$quantity.'!',
+                'type'      => 'error'
+            ]);
+        }    
     }
 
     public function render()

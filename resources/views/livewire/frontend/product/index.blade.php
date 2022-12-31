@@ -43,8 +43,11 @@
                                 <div class="product-action">
                                     @if ($product->quantity > 0)
                                     <a href="#"><i class="fa fa-cart-plus"></i></a>
-                                    @endif
-                                    <a href="#"><i class="fa fa-heart"></i></a>
+                                    @endif                                          
+                                    <button wire:click="addproductwishlist({{ $product->id }})" type="button">
+                                        <span wire:loading.remove wire:target="addproductwishlist({{ $product->id }})"><i class="fa fa-heart"></i></span>
+                                        <span wire:loading wire:target="addproductwishlist({{ $product->id }})"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
+                                    </button>
                                     <a href="{{ url('collections/'.$product->category->slug.'/'.$product->slug) }}"><i class="fa fa-search"></i></a>
                                 </div>
                             </div>                                    

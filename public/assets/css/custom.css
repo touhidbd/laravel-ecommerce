@@ -1,3 +1,7 @@
+button:focus {
+    outline: 0;
+}
+
 .homeslider .carousel-item {
     height: 600px;
 }

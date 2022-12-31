@@ -67,9 +67,9 @@
                                 <div class="quantity">
                                     <h4>Quantity:</h4>
                                     <div class="qty">
-                                        <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                        <input type="text" value="1">
-                                        <button class="btn-plus"><i class="fa fa-plus"></i></button>
+                                        <button class="btn-decrement" wire:click="decrementQuantity"><i class="fa fa-minus"></i></button>
+                                        <input type="text" value="{{ $this->quantityCount }}" wire:model="quantityCount" readonly>
+                                        <button class="btn-increment" wire:click="incrementQuantity({{ $product->quantity }})"><i class="fa fa-plus"></i></button>
                                     </div>
                                 </div>
                                 <div class="action">
@@ -77,8 +77,8 @@
                                     <a href="#"><i class="fa fa-cart-plus"></i></a>
                                     @endif
                                     <button wire:click="addwishlist({{ $product->id }})" type="button">
-                                        <span wire:loading.remove><i class="fa fa-heart"></i></span>
-                                        <span wire:loading wire:target="addwishlist"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
+                                        <span wire:loading.remove wire:target="addwishlist({{ $product->id }})"><i class="fa fa-heart"></i></span>
+                                        <span wire:loading wire:target="addwishlist({{ $product->id }})"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
                                     </button>
                                 </div>
                             </div>
@@ -142,8 +142,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    
+                    </div>                    
                     
                     @if ($products->count() > 0)
                         <div class="container">
