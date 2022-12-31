@@ -53,7 +53,7 @@
                         </a> |
                         <a href="{{ url('/wishlist') }}">
                             <i class="fa fa-heart"></i>
-                            <span>(0)</span>
+                            <livewire:frontend.wishlist.count />
                         </a>
                     </div>
                 </div>

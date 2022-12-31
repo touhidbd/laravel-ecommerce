@@ -1,0 +1,3 @@
+<span>
+    ({{ $wishlistcount }})
+</span>

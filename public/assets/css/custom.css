@@ -115,3 +115,21 @@
     color: #3F69AA;
     background: #ffffff;
 }
+
+.product-item .product-image .product-action button {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    padding: 6px 0;
+    margin-right: 5px;
+    text-align: center;
+    color: #ffffff;
+    font-size: 18px;
+    background: #3F69AA;
+    border: 0;
+}
+
+.product-item .product-image .product-action button:hover {
+    color: #3F69AA;
+    background: #ffffff;
+}

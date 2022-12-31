@@ -43,6 +43,8 @@ class View extends Component
                         'user_id'       => Auth::user()->id,
                         'product_id'    => $this->product_id
                     ]);    
+                    
+                    $this->emit('wishlistupdate');
                     session()->flash('status', 'Your wishlist added successfully!');
                     $this->dispatchBrowserEvent('message', [
                         'text'      => 'Your wishlist added successfully!',

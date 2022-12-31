@@ -24,6 +24,7 @@ class Index extends Component
             {
                 $remove_wishlist->delete();
                 session()->flash('status', 'Product removed successfully!');
+                $this->emit('wishlistupdate');
                 $this->dispatchBrowserEvent('message', [
                     'text'      => 'Product removed successfully!',
                     'type'      => 'success',
