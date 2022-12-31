@@ -55,11 +55,11 @@ class View extends Component
             else
             {
                 session()->flash('status', 'Proudct not found!');
-                    $this->dispatchBrowserEvent('message', [
-                        'text'      => 'Proudct not found!',
-                        'type'      => 'error',
-                        'status'    => 404
-                    ]);
+                $this->dispatchBrowserEvent('message', [
+                    'text'      => 'Proudct not found!',
+                    'type'      => 'error',
+                    'status'    => 404
+                ]);
                 return false; 
             }
         }

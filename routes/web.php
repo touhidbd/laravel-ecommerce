@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Frontend\WishlistContoller;
 use App\Http\Controllers\Frontend\FrontendController;
 
 Auth::routes();
@@ -13,7 +14,7 @@ Auth::routes();
 // Front End
 Route::controller(FrontendController::class)->group(function() {
 
-    //Pages
+    // Pages
     Route::get('/', 'index');    
     Route::get('/contact-us', 'contact');
     Route::post('/contact', 'send_mail');
@@ -22,10 +23,13 @@ Route::controller(FrontendController::class)->group(function() {
     Route::get('/collections', 'categories');
     Route::get('/collections/{category_slug}', 'products');
     Route::get('/collections/{category_slug}/{product_slug}', 'productView');
-
     
 });
 
+// Wishlist
+Route::middleware(['auth'])->group(function () {
+    Route::get('/wishlist', [WishlistContoller::class, 'index']);
+});
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
