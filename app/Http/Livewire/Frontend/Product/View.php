@@ -154,6 +154,7 @@ class View extends Component
                                         'quantity'          => $this->quantityCount
                                     ]);
 
+                                    $this->emit('CartAddedUpdated');
                                     session()->flash('status', 'Product added to cart successfully!');
                                     $this->dispatchBrowserEvent('message', [
                                         'text'      => 'Product added to cart successfully!',
@@ -218,7 +219,8 @@ class View extends Component
                                     'product_id'        => $product_id,
                                     'quantity'          => $this->quantityCount
                                 ]);
-
+                                
+                                $this->emit('CartAddedUpdated');
                                 session()->flash('status', 'Product added to cart successfully!');
                                 $this->dispatchBrowserEvent('message', [
                                     'text'      => 'Product added to cart successfully!',

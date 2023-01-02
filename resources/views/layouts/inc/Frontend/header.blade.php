@@ -49,7 +49,7 @@
                     <div class="cart">
                         <a href="{{ url('/cart') }}">
                             <i class="fa fa-cart-plus"></i>
-                            <span>(0)</span>
+                            <livewire:frontend.cart.cart-count />
                         </a> |
                         <a href="{{ url('/wishlist') }}">
                             <i class="fa fa-heart"></i>

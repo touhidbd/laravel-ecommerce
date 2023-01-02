@@ -1,0 +1,3 @@
+<span>
+    ({{ $cartcount }})
+</span>
