@@ -25,7 +25,6 @@
                                     <th>Image</th>
                                     <th>Name</th>
                                     <th>Price</th>
-                                    <th>Quantity</th>
                                     <th>Add to Cart</th>
                                     <th>Remove</th>
                                 </tr>
@@ -44,13 +43,6 @@
                                         <td><a href="{{ url('collections/'.$singlewishlist->product->category->slug.'/'.$singlewishlist->product->slug) }}"><img src="{{ asset($singlewishlist->product->productImages[0]->image) }}" alt="{{ $singlewishlist->product->name }}"></a></td>
                                         <td><a href="{{ url('collections/'.$singlewishlist->product->category->slug.'/'.$singlewishlist->product->slug) }}">{{ $singlewishlist->product->name }}</a></td>
                                         <td>${{ $price }}</td>
-                                        <td>
-                                            <div class="qty">
-                                                <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                <input type="text" value="1">
-                                                <button class="btn-plus"><i class="fa fa-plus"></i></button>
-                                            </div>
-                                        </td>
                                         <td><button>Add to Cart</button></td>
                                         <td><button wire:click="removeproduct({{ $singlewishlist->id }})">
                                             <span wire:loading.remove wire:target="removeproduct({{ $singlewishlist->id }})"><i class="fa fa-trash"></i></span>

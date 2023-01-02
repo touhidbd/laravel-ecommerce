@@ -27,12 +27,7 @@
                                     @foreach ($product->productImages as $image)
                                     <img src="{{ asset($image->image) }}" alt="{{ $product->name }}"> 
                                     @endforeach                                
-                                </div>
-                                @if ($product->quantity > 0)
-                                    <span class="stock bg-success">In Stock</span>
-                                @else
-                                    <span class="stock bg-danger">Out of Stock</span>
-                                @endif     
+                                </div>  
                                 <span class="brand bg-warning">Brand: <strong>{{ $product->brands->name }}</strong></span>
                             </div>
                         </div>
@@ -56,13 +51,31 @@
                                     {!! $product->small_description !!}
                                 </div>
 
-                                <div class="colors">
-                                    @if ($product->productColor)
+                                @if ($product->productColor->count() > 0)
+                                    <div class="colors">                                   
                                         @foreach ($product->productColor as $color)
-                                            <label><input type="radio" name="colorSelection" value="{{ $color->id }}"> {{ $color->color->name }}</label>
+                                            <div class="single-color">
+                                                <input type="radio" name="colorselect" id="color-{{ $color->id }}">
+                                                <label for="color-{{ $color->id }}" class="bg-blue" wire:click="colorSelected({{ $color->id }})" style="background-color: {{ $color->color->code }}"> {{ $color->color->name }}</label>
+                                            </div>
                                         @endforeach
-                                    @endif
-                                </div>
+                                    </div>  
+
+                                    @if ($this->productColorSelectedQuantity == 'outOfStock')
+                                        <span class="stock bg-danger">Out of Stock</span>
+                                    @else
+                                        <span class="stock bg-success">In Stock</span>
+                                    @endif  
+                                    
+                                @else                                
+                                    @if ($product->quantity)
+                                        <span class="stock bg-success">In Stock</span>
+                                    @else
+                                        <span class="stock bg-danger">Out of Stock</span>
+                                    @endif   
+                                @endif
+
+
 
                                 <div class="quantity">
                                     <h4>Quantity:</h4>
@@ -74,7 +87,10 @@
                                 </div>
                                 <div class="action">
                                     @if ($product->quantity > 0)
-                                    <a href="#"><i class="fa fa-cart-plus"></i></a>
+                                    <button wire:click="addToCart({{ $product->id }})">
+                                        <span wire:loading.remove wire:target="addToCart({{ $product->id }})"><i class="fa fa-cart-plus"></i></span>
+                                        <span wire:loading wire:target="addToCart({{ $product->id }})"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
+                                    </button>
                                     @endif
                                     <button wire:click="addwishlist({{ $product->id }})" type="button">
                                         <span wire:loading.remove wire:target="addwishlist({{ $product->id }})"><i class="fa fa-heart"></i></span>

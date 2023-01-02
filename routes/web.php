@@ -61,7 +61,7 @@ Route::prefix('admin')->middleware('auth', 'isAdmin')->group(function(){
         Route::put('/products/{product}', 'update');
         Route::post('/delete-image', 'deleteimage');
         Route::post('/product-color/{color_id}', 'updateProductColor');
-        Route::get('/product-color/{color_id}/delete', 'deleteProductColor');
+        Route::post('/product-color/{color_id}/delete', 'deleteProductColor');
     });
 
     Route::controller(SliderController::class)->group(function() {
