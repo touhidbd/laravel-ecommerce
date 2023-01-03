@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class Index extends Component
 {
-    public $carts;
+    public $carts, $allTotalPrice = 0;
 
     public function incrementQuantity(int $cart_id)
     {

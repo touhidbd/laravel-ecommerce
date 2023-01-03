@@ -58,7 +58,12 @@
                                                     <button class="btn-plus" wire:loading.attr="disabled" wire:click="incrementQuantity({{ $cart->id }})"><i class="fa fa-plus"></i></button>
                                                 </div>
                                             </td>
-                                            <td>${{ $total_price }}</td>
+                                            <td>
+                                                ${{ $total_price }}
+                                                @php
+                                                    $allTotalPrice += $total_price;
+                                                @endphp
+                                            </td>
                                             <td>
                                                 <button wire:loading.attr="disabled" wire:click="removeproduct({{ $cart->id }})">
                                                     <span wire:loading.remove wire:target="removeproduct({{ $cart->id }})"><i class="fa fa-trash"></i></span>
@@ -84,13 +89,12 @@
                     <div class="cart-summary">
                         <div class="cart-content">
                             <h3>Cart Summary</h3>
-                            <p>Sub Total<span>$22</span></p>
-                            <p>Shipping Cost<span>$1</span></p>
-                            <h4>Grand Total<span>$23</span></h4>
+                            <p>Sub Total<span>${{ $allTotalPrice }}</span></p>
+                            {{-- <p>Shipping Cost<span>$1</span></p> --}}
+                            <h4>Grand Total<span>${{ $allTotalPrice }}</span></h4>
                         </div>
                         <div class="cart-btn">
-                            <button>Update Cart</button>
-                            <button>Checkout</button>
+                            <button type="button">Checkout</button>
                         </div>
                     </div>
                 </div>
