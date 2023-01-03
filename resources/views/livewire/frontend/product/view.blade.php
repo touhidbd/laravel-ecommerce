@@ -80,9 +80,9 @@
                                 <div class="quantity">
                                     <h4>Quantity:</h4>
                                     <div class="qty">
-                                        <button class="btn-decrement" wire:click="decrementQuantity"><i class="fa fa-minus"></i></button>
+                                        <button type="button" class="btn-decrement" wire:loading.attr="disabled" wire:click="decrementQuantity"><i class="fa fa-minus"></i></button>
                                         <input type="text" value="{{ $this->quantityCount }}" wire:model="quantityCount" readonly>
-                                        <button class="btn-increment" wire:click="incrementQuantity({{ $product->quantity }})"><i class="fa fa-plus"></i></button>
+                                        <button type="button" class="btn-increment" wire:loading.attr="disabled" wire:click="incrementQuantity"><i class="fa fa-plus"></i></button>
                                     </div>
                                 </div>
                                 <div class="action">

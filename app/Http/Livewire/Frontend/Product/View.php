@@ -96,18 +96,20 @@ class View extends Component
                 'type'      => 'error'
             ]);
         }
+        return false;
     }
 
-    public function incrementQuantity($quantity)
+    public function incrementQuantity()
     {
-        if($this->quantityCount < $quantity) {
+        if($this->quantityCount < $this->product->quantity) {
             $this->quantityCount++;
         } else {
             $this->dispatchBrowserEvent('message', [
-                'text'      => 'Maximum quantity '.$quantity.'!',
+                'text'      => 'Maximum quantity '.$this->product->quantity.'!',
                 'type'      => 'error'
             ]);
-        }    
+        } 
+        return false;   
     }
 
     public function addToCart(int $product_id)
