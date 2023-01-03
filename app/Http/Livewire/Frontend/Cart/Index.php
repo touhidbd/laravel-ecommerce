@@ -97,6 +97,43 @@ class Index extends Component
 
         }
     }
+
+    public function removeproduct(int $product_id)
+    {
+        if(Auth::check())
+        {
+            $remove_cartitem = Cart::where('id', $product_id)->first();
+            if($remove_cartitem)
+            {
+                $remove_cartitem->delete();
+                session()->flash('status', 'Product removed successfully!');
+                $this->emit('CartAddedUpdated');
+                $this->dispatchBrowserEvent('message', [
+                    'text'      => 'Product removed successfully!',
+                    'type'      => 'success',
+                    'status'    => 200
+                ]);
+            }
+            else
+            {
+                session()->flash('status', 'Product not found!');
+                $this->dispatchBrowserEvent('message', [
+                    'text'      => 'Proudct not found!',
+                    'type'      => 'error',
+                    'status'    => 404
+                ]);
+            }
+        }
+        else
+        {
+            session()->flash('status', 'Please login to continue!');
+            $this->dispatchBrowserEvent('message', [
+                'text'      => 'Please login to continue!',
+                'type'      => 'notify',
+                'status'    => 401
+            ]);
+        }
+    }
     
     public function render()
     {

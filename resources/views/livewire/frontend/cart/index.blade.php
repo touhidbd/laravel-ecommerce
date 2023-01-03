@@ -59,7 +59,12 @@
                                                 </div>
                                             </td>
                                             <td>${{ $total_price }}</td>
-                                            <td><button><i class="fa fa-trash"></i></button></td>
+                                            <td>
+                                                <button wire:loading.attr="disabled" wire:click="removeproduct({{ $cart->id }})">
+                                                    <span wire:loading.remove wire:target="removeproduct({{ $cart->id }})"><i class="fa fa-trash"></i></span>
+                                                    <span wire:loading wire:target="removeproduct({{ $cart->id }})"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
+                                                </button>
+                                            </td>
                                         </tr>                                      
                                     @endif
                                 @endforeach                                
