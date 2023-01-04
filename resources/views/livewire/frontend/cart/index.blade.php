@@ -94,7 +94,7 @@
                             <h4>Grand Total<span>${{ $allTotalPrice }}</span></h4>
                         </div>
                         <div class="cart-btn">
-                            <button type="button">Checkout</button>
+                            <a href="{{ url('/checkout') }}">Checkout</a>
                         </div>
                     </div>
                 </div>

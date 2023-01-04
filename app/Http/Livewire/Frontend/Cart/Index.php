@@ -45,8 +45,8 @@ class Index extends Component
                     session()->flash('status', 'Quantity Update!');
                     $this->dispatchBrowserEvent('message', [
                         'text'      => 'Quantity Update!',
-                        'type'      => 'error',
-                        'status'    => 401
+                        'type'      => 'success',
+                        'status'    => 200
                     ]);
                 }
             }

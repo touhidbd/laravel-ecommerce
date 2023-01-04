@@ -94,4 +94,9 @@ class FrontendController extends Controller
 
         return redirect('/contact-us')->with('status', 'Thank you for your interest! We will contact with you as soon as possible.');
     }
+
+    public function thankyou()
+    {
+        return view('frontend.thank-you');
+    }
 }

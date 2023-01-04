@@ -172,3 +172,22 @@ button:focus {
     display: block;
     width: fit-content;
 }
+
+.cart-page .cart-summary .cart-btn a {
+    margin-top: 15px;
+    padding: 15px 10px;
+    text-align: center;
+    color: #ffffff;
+    background: #3F69AA;
+    border: none;
+    color: #3F69AA;
+    background: #ffffff;
+    border: 1px solid #3F69AA;
+    display: block;
+    transition: 0.2s;
+}
+
+.cart-page .cart-summary .cart-btn :hover {
+    color: #fff;
+    background: #3F69AA;
+}

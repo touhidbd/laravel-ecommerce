@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Frontend\WishlistContoller;
+use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\FrontendController;
 
 Auth::routes();
@@ -24,6 +25,9 @@ Route::controller(FrontendController::class)->group(function() {
     Route::get('/collections', 'categories');
     Route::get('/collections/{category_slug}', 'products');
     Route::get('/collections/{category_slug}/{product_slug}', 'productView');
+
+    // Thank you page
+    Route::get('/thank-you', 'thankyou');
     
 });
 
@@ -31,6 +35,7 @@ Route::controller(FrontendController::class)->group(function() {
 Route::middleware(['auth'])->group(function () {
     Route::get('/wishlist', [WishlistContoller::class, 'index']);
     Route::get('/cart', [CartContoller::class, 'index']);
+    Route::get('/checkout', [CheckoutController::class, 'index']);
 });
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
