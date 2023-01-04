@@ -85,6 +85,16 @@ class Index extends Component
                 'quantity'              => $cartItem->quantity,
                 'price'                 => $price * $cartItem->quantity
             ]);
+
+            if($cartItem->product_color_id != NULL)
+            {
+                $cartItem->productColor->where('id', $cartItem->product_color_id)->decrement('quantity', $cartItem->quantity);
+            }
+            else
+            {
+                $cartItem->product->where('id', $cartItem->product_id)->decrement('quantity', $cartItem->quantity);
+
+            }
         }
 
         return $order;
