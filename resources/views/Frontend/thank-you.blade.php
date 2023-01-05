@@ -7,10 +7,10 @@
     <div class="container my-5">
         <div class="row">
             <div class="col-md-12">
+                @if (session('status'))
+                    <h5 class="alert alert-success">{{ session('status') }}</h5>
+                @endif
                 <div class="card py-5 text-center">
-                    @if (session('status'))
-                        <h5 class="alert alert-success">{{ session('status') }}</h5>
-                    @endif
                     <h2>Thank you for your order!</h2>
                 </div>
             </div>

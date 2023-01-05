@@ -14,6 +14,45 @@ class Index extends Component
 
     public $name, $email, $phone, $address, $country, $city, $state, $zip, $status_message = NULL, $payment_mode = NULL, $payment_id = NULL;
 
+    protected $listeners = [
+        'validationForAll',
+        'transactionEmit' => 'PayOnline'
+    ];
+
+    public function PayOnline($value)
+    {
+        $this->payment_id = $value;
+        $this->payment_mode = 'Paid by Paypal';
+
+        $onlineorder = $this->placeOrder();
+        if($onlineorder)
+        {
+            Cart::where('user_id', auth()->user()->id)->delete();
+
+            session()->flash('status', 'Order place successfully!');
+            $this->dispatchBrowserEvent('message', [
+                'text'      => 'Order place successfully!',
+                'type'      => 'success',
+                'status'    => 200
+            ]);
+            return redirect()->to('thank-you');
+        }
+        else
+        {
+            session()->flash('status', 'Something went wrong!');
+            $this->dispatchBrowserEvent('message', [
+                'text'      => 'Something went wrong!',
+                'type'      => 'error',
+                'status'    => 500
+            ]);
+        }
+    }
+
+    public function validationForAll()
+    {
+        $this->validate();
+    }
+
     public function rules()
     {
         return [
@@ -25,23 +64,11 @@ class Index extends Component
             'city'                  => 'required|string|max:121',
             'state'                 => 'required|string|max:121',
             'zip'                   => 'required|string|max:121',
-            
-            // 'shipping_different'    => 'nullable|string|max:121',
-            // 'different_name'        => 'nullable|string|max:121',
-            // 'different_email'       => 'nullable|string|max:121',
-            // 'different_phone'       => 'nullable|string|max:121',
-            // 'different_address'     => 'nullable|string|max:121',
-            // 'different_country'     => 'nullable|string|max:121',
-            // 'different_city'        => 'nullable|string|max:121',
-            // 'different_state'       => 'nullable|string|max:121',
-            // 'different_zip'         => 'nullable|string|max:121'
         ];
     }
 
     public function placeOrder()
     {
-        $this->validate();
-
         $order = Order::create([
             'user_id'               => auth()->user()->id,
             'tracking_no'           => 'ecommerce_'.Str::random(10),
@@ -57,16 +84,6 @@ class Index extends Component
             'status_message'        => $this->status_message,
             'payment_mode'          => $this->payment_mode,
             'payment_id'            => $this->payment_id,
-
-            // 'shipping_different'    => $this->shipping_different == true ? '1':'0',
-            // 'different_name'        => $this->different_name,
-            // 'different_email'       => $this->different_email,
-            // 'different_phone'       => $this->different_phone,
-            // 'different_address'     => $this->different_address,
-            // 'different_country'     => $this->different_country,
-            // 'different_city'        => $this->different_city,
-            // 'different_state'       => $this->different_state,
-            // 'different_zip'         => $this->different_zip
         ]);
 
         $cart_list = Cart::where('user_id', auth()->user()->id)->get();
@@ -102,6 +119,7 @@ class Index extends Component
 
     public function codOrder()
     {
+        $this->validate();
         $this->payment_mode = 'Cash on Delivery';
         $codOrder = $this->placeOrder();
         if($codOrder)
@@ -114,7 +132,7 @@ class Index extends Component
                 'type'      => 'success',
                 'status'    => 200
             ]);
-            return redirect()->to('/thank-you');
+            return redirect()->to('thank-you');
         }
         else
         {
@@ -132,12 +150,6 @@ class Index extends Component
         $this->carts = Cart::where('user_id', auth()->user()->id)->get();
         $this->name = auth()->user()->name;
         $this->email = auth()->user()->email;
-        $this->phone = auth()->user()->phone;
-        $this->address = auth()->user()->address;
-        $this->country = auth()->user()->country;
-        $this->city = auth()->user()->city;
-        $this->state = auth()->user()->state;
-        $this->zip = auth()->user()->zip;
         return view('livewire.frontend.checkout.index', [
             'carts' => $this->carts
         ]);

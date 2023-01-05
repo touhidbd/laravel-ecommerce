@@ -23,35 +23,35 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label>Name</label>
-                                <input wire:model.defer="name" class="form-control" type="text" placeholder="Name">
+                                <input id="name" wire:model.defer="name" class="form-control" type="text" placeholder="Name">
                                 @error('name')
                                     <p class="small text-danger">{{ $message }}</p>
                                 @enderror
                             </div>
                             <div class="col-md-6">
                                 <label>E-mail</label>
-                                <input wire:model.defer="email" class="form-control" type="text" placeholder="E-mail">
+                                <input id="email" wire:model.defer="email" class="form-control" type="text" placeholder="E-mail">
                                 @error('email')
                                     <p class="small text-danger">{{ $message }}</p>
                                 @enderror
                             </div>
                             <div class="col-md-6">
                                 <label>Phone</label>
-                                <input wire:model.defer="phone" class="form-control" type="text" placeholder="Phone">
+                                <input id="phone" wire:model.defer="phone" class="form-control" type="text" placeholder="Phone">
                                 @error('phone')
                                     <p class="small text-danger">{{ $message }}</p>
                                 @enderror
                             </div>
                             <div class="col-md-12">
                                 <label>Address</label>
-                                <input wire:model.defer="address" class="form-control" type="text" placeholder="Address">
+                                <input id="address" wire:model.defer="address" class="form-control" type="text" placeholder="Address">
                                 @error('address')
                                     <p class="small text-danger">{{ $message }}</p>
                                 @enderror
                             </div>
                             <div class="col-md-6">
                                 <label>Country</label>
-                                <select wire:model.defer="country" class="custom-select">
+                                <select id="country" wire:model.defer="country" class="custom-select">
                                     <option>-- Select Option --</option>
                                     <option value="Bangladesh">Bangladesh</option>
                                     <option value="United States">United States</option>
@@ -65,100 +65,22 @@
                             </div>
                             <div class="col-md-6">
                                 <label>City</label>
-                                <input wire:model.defer="city" class="form-control" type="text" placeholder="City">
+                                <input id="city" wire:model.defer="city" class="form-control" type="text" placeholder="City">
                                 @error('city')
                                     <p class="small text-danger">{{ $message }}</p>
                                 @enderror
                             </div>
                             <div class="col-md-6">
                                 <label>State</label>
-                                <input wire:model.defer="state" class="form-control" type="text" placeholder="State">
+                                <input id="state" wire:model.defer="state" class="form-control" type="text" placeholder="State">
                                 @error('state')
                                     <p class="small text-danger">{{ $message }}</p>
                                 @enderror
                             </div>
                             <div class="col-md-6">
                                 <label>ZIP Code</label>
-                                <input wire:model.defer="zip" class="form-control" type="text" placeholder="ZIP Code">
-                                @error('email')
-                                    <p class="small text-danger">{{ $message }}</p>
-                                @enderror
-                            </div>
-                            <div class="col-md-12">
-                                <div class="custom-control custom-checkbox">
-                                    <input wire:model.defer="shipping_different" type="checkbox" class="custom-control-input" id="shipto">
-                                    <label class="custom-control-label" for="shipto">Ship to different address</label>
-                                </div>
-                                @error('email')
-                                    <p class="small text-danger">{{ $message }}</p>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="shipping-address">
-                        <h2>Shipping Address</h2>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Name</label>
-                                <input wire:model="different_name" class="form-control" type="text" placeholder="Name">
-                                @error('different_name')
-                                    <p class="small text-danger">{{ $message }}</p>
-                                @enderror
-                            </div>
-                            <div class="col-md-6">
-                                <label>E-mail</label>
-                                <input wire:model="different_email" class="form-control" type="text" placeholder="E-mail">
-                                @error('different_email')
-                                    <p class="small text-danger">{{ $message }}</p>
-                                @enderror
-                            </div>
-                            <div class="col-md-6">
-                                <label>Phone</label>
-                                <input wire:model="different_phone" class="form-control" type="text" placeholder="Phone">
-                                @error('different_phone')
-                                    <p class="small text-danger">{{ $message }}</p>
-                                @enderror
-                            </div>
-                            <div class="col-md-12">
-                                <label>Address</label>
-                                <input wire:model="different_address" class="form-control" type="text" placeholder="Address">
-                                @error('different_address')
-                                    <p class="small text-danger">{{ $message }}</p>
-                                @enderror
-                            </div>
-                            <div class="col-md-6">
-                                <label>Country</label>
-                                <select wire:model="different_country" class="custom-select">
-                                    <option>-- Select Option --</option>
-                                    <option value="Bangladesh">Bangladesh</option>
-                                    <option value="United States">United States</option>
-                                    <option value="Afghanistan">Afghanistan</option>
-                                    <option value="Albania">Albania</option>
-                                    <option value="Algeria">Algeria</option>
-                                </select>
-                                @error('different_country')
-                                    <p class="small text-danger">{{ $message }}</p>
-                                @enderror
-                            </div>
-                            <div class="col-md-6">
-                                <label>City</label>
-                                <input wire:model="different_city" class="form-control" type="text" placeholder="City">
-                                @error('different_city')
-                                    <p class="small text-danger">{{ $message }}</p>
-                                @enderror
-                            </div>
-                            <div class="col-md-6">
-                                <label>State</label>
-                                <input wire:model="different_state" class="form-control" type="text" placeholder="State">
-                                @error('different_state')
-                                    <p class="small text-danger">{{ $message }}</p>
-                                @enderror
-                            </div>
-                            <div class="col-md-6">
-                                <label>ZIP Code</label>
-                                <input wire:model="different_zip" class="form-control" type="text" placeholder="ZIP Code">
-                                @error('different_zip')
+                                <input id="zip" wire:model.defer="zip" class="form-control" type="text" placeholder="ZIP Code">
+                                @error('zip')
                                     <p class="small text-danger">{{ $message }}</p>
                                 @enderror
                             </div>
@@ -192,7 +114,7 @@
                         </div>
                     </div>
                     
-                    <div class="checkout-payment">
+                    <div class="checkout-payment" wire:ignore>
                         <h2>Payment Methods</h2>
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
@@ -213,7 +135,10 @@
                             </div>
                             <div class="tab-pane fade p-2 border-top-0" id="profile" role="tabpanel" aria-labelledby="profile-tab">                         
                                 <div class="checkout-button">
-                                    <button class="btn btn-warning w-100 mt-0">Make Payment</button>
+                                    {{-- <button class="btn btn-warning w-100 mt-0">Make Payment</button> --}}
+                                    <div wire:ignore>
+                                        <div id="paypal-button-container"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -229,3 +154,53 @@
     </div>
     <!-- Checkout End -->
 </div>
+
+@push('scripts')
+<script src="https://www.paypal.com/sdk/js?client-id=Ab3eh529qXtcS_jGRQgNVBmAF-78AcQvSR_OWK_TXOZLRgZz6qzySmoiJsS6VmDg9Iyb9WY8pibCFyI7&currency=USD"></script>
+<script>
+    paypal.Buttons({
+        onClick: function()  {
+            if (
+                !document.getElementById('name').value
+                || !document.getElementById('email').value
+                || !document.getElementById('phone').value
+                || !document.getElementById('address').value
+                || !document.getElementById('country').value
+                || !document.getElementById('city').value
+                || !document.getElementById('state').value
+                || !document.getElementById('zip').value
+            ) {
+                Livewire.emit('validationForAll');
+                return false;
+            } else {
+                @this.set('name', document.getElementById('name').value);
+                @this.set('email', document.getElementById('email').value);
+                @this.set('phone', document.getElementById('phone').value);
+                @this.set('address', document.getElementById('address').value);
+                @this.set('country', document.getElementById('country').value);
+                @this.set('city', document.getElementById('city').value);
+                @this.set('state', document.getElementById('state').value);
+                @this.set('zip', document.getElementById('zip').value);
+            }
+        },
+        createOrder: (data, actions) => {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: '{{ $sub_total_amount }}'
+                    }
+                }]
+            });
+        },
+        onApprove: (data, actions) => {
+            return actions.order.capture().then(function(orderData) {
+                console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                const transaction = orderData.purchase_units[0].payments.captures[0];
+                if(transaction.status == "COMPLETED") {
+                    Livewire.emit('transactionEmit', transaction.id);
+                }
+            });
+        }
+    }).render('#paypal-button-container');
+</script>
+@endpush
