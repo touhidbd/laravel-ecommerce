@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Frontend\CartContoller;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Frontend\OrderController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Frontend\WishlistContoller;
 use App\Http\Controllers\Frontend\CheckoutController;
@@ -36,6 +37,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/wishlist', [WishlistContoller::class, 'index']);
     Route::get('/cart', [CartContoller::class, 'index']);
     Route::get('/checkout', [CheckoutController::class, 'index']);
+
+    // Orders
+    Route::get('/orders', [OrderController::class, 'index']);
+    Route::get('/orders/{order_id}', [OrderController::class, 'show']);
 });
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');

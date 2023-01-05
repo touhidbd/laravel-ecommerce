@@ -39,6 +39,7 @@
                             @endif                            
 
                             <a href="{{ url('admin/my-account') }}" class="dropdown-item">{{ __('My Account') }}</a>
+                            <a href="{{ url('orders') }}" class="dropdown-item">{{ __('My Orders') }}</a>
                             <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
