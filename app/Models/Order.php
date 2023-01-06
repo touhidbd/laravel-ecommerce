@@ -24,14 +24,5 @@ class Order extends Model
         'status_message',
         'payment_mode',
         'payment_id',
-        'shipping_different',
-        'different_name',
-        'different_email',
-        'different_phone',
-        'different_address',
-        'different_country',
-        'different_city',
-        'different_state',
-        'different_zip'
     ];
 }

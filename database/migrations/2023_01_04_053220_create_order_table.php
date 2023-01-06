@@ -29,15 +29,6 @@ return new class extends Migration
             $table->string('status_message')->nullable();
             $table->string('payment_mode');
             $table->string('payment_id')->nullable();
-            $table->tinyInteger('shipping_different')->default('0')->comment('0=No,1=Yes');
-            $table->string('different_name')->nullable();
-            $table->string('different_email')->nullable();
-            $table->string('different_phone')->nullable();
-            $table->mediumText('different_address')->nullable();
-            $table->string('different_country')->nullable();
-            $table->string('different_city')->nullable();
-            $table->string('different_state')->nullable();
-            $table->string('different_zip')->nullable();
             $table->timestamps();
         });
     }
