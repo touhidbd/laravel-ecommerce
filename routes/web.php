@@ -2,11 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\OrdersController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Frontend\CartContoller;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Frontend\OrderController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Frontend\WishlistContoller;
 use App\Http\Controllers\Frontend\CheckoutController;
@@ -82,6 +83,13 @@ Route::prefix('admin')->middleware('auth', 'isAdmin')->group(function(){
         Route::post('/slider', 'store');
         Route::get('/slider/{slider}/edit', 'edit');
         Route::put('/slider/{slider}', 'update');
+    });
+
+    Route::controller(OrdersController::class)->group(function() {
+        Route::get('/orders', 'index');
+        Route::get('/order-history', 'history');
+        Route::get('/order/{order_id}', 'view');
+        Route::post('/order/{order_id}', 'update');
     });
 
     // Color

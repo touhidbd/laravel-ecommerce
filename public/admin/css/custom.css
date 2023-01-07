@@ -34,3 +34,19 @@ img {
     opacity: 1;
     animation: none;
 }
+
+.cart-content ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.cart-content ul li {
+    border: 1px solid #ddd;
+    margin-bottom: 5px;
+    padding: 5px 10px;
+}
+
+.cart-content ul li strong {
+    float: right;
+}
