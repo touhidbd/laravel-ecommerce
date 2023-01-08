@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\OrderRequest;
 
@@ -61,5 +62,26 @@ class OrdersController extends Controller
         {
             return redirect()->back()->with('status', 'Somthing wrong!');
         }
+    }
+
+    public function viewInvoice(int $order_id)
+    {
+        $order = Order::findOrFail($order_id);
+        $orderitems = OrderItem::where('order_id', $order_id)->get();
+        return view('admin.invoice.generate-invoice', compact('order', 'orderitems'));
+    }
+
+    public function generateInvoice(int $order_id)
+    {
+        $order = Order::findOrFail($order_id);
+        $orderitems = OrderItem::where('order_id', $order_id)->get();
+        $data = [
+            'order' => $order,
+            'orderitems' => $orderitems
+        ];
+        $todayDate = Carbon::now()->format('d-m-Y');
+
+        $pdf = Pdf::loadView('admin.invoice.generate-invoice', $data);
+        return $pdf->download('invoice-#'.$order->id.'_'.$todayDate.'.pdf');
     }
 }

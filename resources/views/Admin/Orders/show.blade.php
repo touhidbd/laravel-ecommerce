@@ -12,7 +12,12 @@
         <div class="card">
             <div class="card-header py-3 d-flex justify-content-between align-items-center">
                 <h4 class="cart-title m-0">Order</h4>
-                <a href="{{ url('/admin/orders') }}" class="btn btn-sm btn-info">Back</a>
+                <div class="btn-list">
+                    <a href="{{ url('/admin/invoice/'.$order->id) }}" target="_blank" class="btn btn-sm me-2 text-white btn-primary">View Invoice</a>
+                    <a href="{{ url('/admin/invoice/'.$order->id.'/generate') }}" class="btn btn-sm me-2 text-white btn-warning">Download Invoice</a>
+                    <a href="{{ url('/admin/orders') }}" class="btn btn-sm btn-info">Back</a>                    
+                </div>
+
             </div>
             <div class="card-body">
                 <div class="row">              

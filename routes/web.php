@@ -87,9 +87,11 @@ Route::prefix('admin')->middleware('auth', 'isAdmin')->group(function(){
 
     Route::controller(OrdersController::class)->group(function() {
         Route::get('/orders', 'index');
-        Route::get('/order-history', 'history');
         Route::get('/order/{order_id}', 'view');
         Route::post('/order/{order_id}', 'update');
+
+        Route::get('/invoice/{order_id}', 'viewInvoice');
+        Route::get('/invoice/{order_id}/generate', 'generateInvoice');
     });
 
     // Color
