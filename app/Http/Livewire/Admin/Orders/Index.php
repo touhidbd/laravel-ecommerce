@@ -12,11 +12,35 @@ class Index extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
 
+    public $filter, $date, $status, $search, $payment;
+
+    protected $queryString = [
+        'date',
+        'status',
+        'search',
+        'payment'
+    ];
     
     public function render()
     {
-        $today = Carbon::now();
-        $orders = Order::whereDate('created_at', $today)->orderBy('created_at', 'DESC')->paginate(10);
+        $orders = Order::when($this->status, function($q){
+                            $q->whereIn('status', [$this->status]);
+                        })
+                        ->when($this->date, function($q){
+                            $q->whereDate('created_at', $this->date);
+                        })
+                        ->when($this->payment, function($q){
+                            $q->when($this->payment == 'cash-on-delivery', function($q2){
+                                $q2->where('payment_mode', 'Cash on Delivery');
+                            })
+                            ->when($this->payment == 'paid-by-paypal', function($q2){
+                                $q2->where('payment_mode', 'Paid by Paypal');
+                            });
+                        })
+                        ->when($this->search, function($q){
+                            $q->where('tracking_no', 'LIKE', '%'.$this->search.'%');
+                        })
+                        ->paginate(10);
         return view('livewire.admin.orders.index', [
             'orders'    => $orders
         ]);

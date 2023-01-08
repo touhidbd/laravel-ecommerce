@@ -45,7 +45,13 @@
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-bs-toggle="collapse" href="#orders" aria-expanded="false" aria-controls="orders">
+        <a class="nav-link"href="{{ url('admin/orders') }}">
+          <i class="mdi mdi-chart-bar menu-icon"></i>
+          <span class="menu-title">Orders</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="collapse" href="#ui-slider" aria-expanded="false" aria-controls="orders">
           <i class="mdi mdi-image-multiple menu-icon"></i>
           <span class="menu-title">Home Slider</span>
           <i class="menu-arrow"></i>
@@ -54,19 +60,6 @@
           <ul class="nav flex-column sub-menu">
             <li class="nav-item"> <a class="nav-link" href="{{ url('admin/add-slider') }}">Add Slider</a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ url('admin/sliders') }}">Sliders</a></li>
-          </ul>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-bs-toggle="collapse" href="#orders" aria-expanded="false" aria-controls="orders">
-          <i class="mdi mdi-image-multiple menu-icon"></i>
-          <span class="menu-title">Orders</span>
-          <i class="menu-arrow"></i>
-        </a>
-        <div class="collapse" id="orders">
-          <ul class="nav flex-column sub-menu">
-            <li class="nav-item"> <a class="nav-link" href="{{ url('admin/orders') }}">Order List</a></li>
-            <li class="nav-item"> <a class="nav-link" href="{{ url('admin/order-history') }}">Order History</a></li>
           </ul>
         </div>
       </li>

@@ -9,7 +9,38 @@
             <div class="card">
                 <div class="card-header py-3 d-flex justify-content-between align-items-center">
                     <h4 class="cart-title m-0">Orders</h4>
-                    <a href="{{ url('/admin/order-history') }}" class="btn btn-sm btn-info">Order History</a>
+                </div>
+                <div class="card-header py-4">                
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h5 class="cart-title mb-2">Filter by Date:</h5>
+                            <input wire:model="date" type="date" value="{{ date('Y-m-d') }}" class="form-control form-control-lg">
+                        </div>
+                        <div class="col-md-3">
+                            <h5 class="cart-title mb-2">Filter by Status:</h5>
+                            <select wire:model="status" class="form-control form-control-lg">
+                                <option value="" selected>All Orders</option>
+                                <option value="0">Pending</option>
+                                <option value="1">Complated</option>
+                                <option value="2">Shipping</option>
+                                <option value="3">Cancelled</option>
+                                <option value="4">Proccessing</option>
+                                <option value="5">Refunded</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <h5 class="cart-title mb-2">Filter by Payment:</h5>
+                            <select wire:model="payment" class="form-control form-control-lg">
+                                <option value="" selected>All Payment</option>
+                                <option value="cash-on-delivery">Cash on Delivery</option>
+                                <option value="paid-by-paypal">Paid by Paypal</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <h5 class="cart-title mb-2">Filter by Tracking No:</h5>
+                            <input wire:model="search" type="text" class="form-control form-control-lg" placeholder="Search">
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
