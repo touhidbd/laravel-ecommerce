@@ -54,13 +54,17 @@ button:focus {
     padding: 3px 7px;
     border-radius: 5px;
     position: absolute;
-    bottom: 5px;
     left: 50%;
     font-weight: 300;
     -webkit-transform: translate(-50%, 0);
     transform: translate(-50%, 0);
     min-width: 150px;
     text-align: center;
+    bottom: 5px;
+}
+
+.product-images .brand {
+    bottom: 90px;
 }
 
 .product-item .product-image .brand strong,

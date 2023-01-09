@@ -13,6 +13,7 @@
             <div class="card-header py-3 d-flex justify-content-between align-items-center">
                 <h4 class="cart-title m-0">Order</h4>
                 <div class="btn-list">
+                    <button type="button" onclick="printJS('{{ url('/admin/invoice/'.$order->id.'/generate') }}')" class="btn btn-sm me-2 text-white btn-success">Print Invoice</button>
                     <a href="{{ url('/admin/invoice/'.$order->id) }}" target="_blank" class="btn btn-sm me-2 text-white btn-primary">View Invoice</a>
                     <a href="{{ url('/admin/invoice/'.$order->id.'/generate') }}" class="btn btn-sm me-2 text-white btn-warning">Download Invoice</a>
                     <a href="{{ url('/admin/orders') }}" class="btn btn-sm btn-info">Back</a>                    
@@ -158,7 +159,12 @@
 </div>
 @endsection
 
+@section('styles')
+<link rel="stylesheet" href="https://printjs-4de6.kxcdn.com/print.min.css">
+@endsection
+
 @section('scripts')
+<script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
 @if (session('status')) 
 <script>    
     Swal.fire({

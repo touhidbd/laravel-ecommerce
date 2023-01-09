@@ -1,5 +1,4 @@
-<div>
-    
+<div>    
     <!-- Breadcrumb Start -->
     <div class="breadcrumb-wrap">
         <div class="container">
@@ -13,21 +12,28 @@
     </div>
     <!-- Breadcrumb End -->
 
-
-
     <!-- Product Detail Start -->
     <div class="product-detail">
         <div class="container">
             <div class="row">
                 <div class="col-lg-9">
                     <div class="row align-items-center product-detail-top">
-                        <div class="col-md-5">
-                            <div class="product-images">
-                                <div class="product-slider-single">
-                                    @foreach ($product->productImages as $image)
-                                    <img src="{{ asset($image->image) }}" alt="{{ $product->name }}"> 
-                                    @endforeach                                
-                                </div>  
+                        <div class="col-md-5" wire:ignore>
+                            <div class="product-images"> 
+                                <div class="exzoom" id="exzoom">
+                                    <div class="exzoom_img_box">
+                                        <ul class='exzoom_img_ul'>
+                                            @foreach ($product->productImages as $image)
+                                            <li><img src="{{ asset($image->image) }}" alt="{{ $product->name }}"> </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                    <div class="exzoom_nav"></div>
+                                    <p class="exzoom_btn">
+                                        <a href="javascript:void(0);" class="exzoom_prev_btn"> <i class="fa fa-angle-left" aria-hidden="true"></i> </a>
+                                        <a href="javascript:void(0);" class="exzoom_next_btn"> <i class="fa fa-angle-right" aria-hidden="true"></i> </a>
+                                    </p>
+                                </div>
                                 <span class="brand bg-warning">Brand: <strong>{{ $product->brands->name }}</strong></span>
                             </div>
                         </div>
@@ -266,3 +272,24 @@
     </div>
     <!-- Product Detail End -->
 </div>
+
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('assets/css/jquery.exzoom.css') }}">
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('assets/js/jquery.exzoom.js') }}"></script>
+    <script>
+        $(function(){
+            $("#exzoom").exzoom({
+                "navWidth": 60,
+                "navHeight": 60,
+                "navItemNum": 5,
+                "navItemMargin": 7,
+                "navBorder": 1,
+                "autoPlay": true,
+                "autoPlayTimeout": 2000            
+            });
+        });
+    </script>
+@endsection
