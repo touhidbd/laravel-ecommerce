@@ -77,6 +77,7 @@
                 <div class="navbar-nav m-auto">
                     <a href="index.html" class="nav-item nav-link active">Home</a>
                     <a href="{{ url('/collections') }}" class="nav-item nav-link">Collections</a>
+                    <a href="{{ url('/new-arrivals') }}" class="nav-item nav-link">New Arrivals</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
                         <div class="dropdown-menu">

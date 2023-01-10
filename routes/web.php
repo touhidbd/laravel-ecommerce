@@ -30,7 +30,9 @@ Route::controller(FrontendController::class)->group(function() {
 
     // Thank you page
     Route::get('/thank-you', 'thankyou');
-    
+
+    // New Arrivals
+    Route::get('/new-arrivals', 'newArrivals');        
 });
 
 // Wishlist

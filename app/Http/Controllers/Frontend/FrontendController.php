@@ -97,6 +97,15 @@ class FrontendController extends Controller
 
     public function thankyou()
     {
-        return view('frontend.thank-you');
+        return view('frontend.pages.thank-you');
+    }
+
+    public function newArrivals()
+    {
+        $featured_product = Product::where('status', '0')->where('trending', '1')->inRandomOrder()->first();
+        $categories = Categories::where('status', '0')->get();
+        $products = Product::where('status', '0')->latest()->paginate(10);
+        $brands = Brands::where('status', '0')->get();
+        return view('frontend.pages.new-arrivals', compact('products', 'featured_product', 'brands', 'categories'));
     }
 }
