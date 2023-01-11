@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\OrdersController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Frontend\CartContoller;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Frontend\WishlistContoller;
@@ -51,6 +52,13 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::prefix('admin')->middleware('auth', 'isAdmin')->group(function(){
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index']);
+
+    // Settings
+    Route::controller(SettingController::class)->group(function () {
+        Route::get('/settings', 'index');
+        Route::post('/settings', 'store');
+    });
+
 
     // Category
     Route::controller(CategoryController::class)->group(function () {

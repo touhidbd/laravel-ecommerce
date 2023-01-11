@@ -64,15 +64,15 @@
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="pages/tables/basic-table.html">
-          <i class="mdi mdi-grid-large menu-icon"></i>
-          <span class="menu-title">Tables</span>
+        <a class="nav-link" href="{{ url('admin/settings') }}">
+          <i class="mdi mdi-settings menu-icon"></i>
+          <span class="menu-title">Settings</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="pages/icons/mdi.html">
-          <i class="mdi mdi-emoticon menu-icon"></i>
-          <span class="menu-title">Icons</span>
+        <a class="nav-link" href="pages/tables/basic-table.html">
+          <i class="mdi mdi-grid-large menu-icon"></i>
+          <span class="menu-title">Tables</span>
         </a>
       </li>
       <li class="nav-item">

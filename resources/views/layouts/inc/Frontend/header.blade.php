@@ -5,7 +5,7 @@
             <div class="col-md-3">
                 <div class="logo">
                     <a href="{{ url('/') }}">
-                        <img src="{{ asset('assets/img/logo.png') }}" alt="Logo">
+                        <img src="{{ asset('assets/img/logo.png') }}" alt="{{ $appSettings->website_name }}">
                     </a>
                 </div>
             </div>

@@ -46,15 +46,14 @@
                 <div class="footer-widget">
                     <h3 class="title">Get in Touch</h3>
                     <div class="contact-info">
-                        <p><i class="fa fa-map-marker"></i>123 E Shop, Los Angeles, CA, USA</p>
-                        <p><i class="fa fa-envelope"></i>email@example.com</p>
-                        <p><i class="fa fa-phone"></i>+123-456-7890</p>
+                        <p><i class="fa fa-map-marker"></i>{{ $appSettings->address }}</p>
+                        <p><i class="fa fa-envelope"></i>{{ $appSettings->email1 }}</p>
+                        <p><i class="fa fa-phone"></i>{{ $appSettings->phone1 }}</p>
                         <div class="social">
-                            <a href=""><i class="fa fa-twitter"></i></a>
-                            <a href=""><i class="fa fa-facebook"></i></a>
-                            <a href=""><i class="fa fa-linkedin"></i></a>
-                            <a href=""><i class="fa fa-instagram"></i></a>
-                            <a href=""><i class="fa fa-youtube"></i></a>
+                            <a href="_blank" href="{{ $appSettings->twitter }}"><i class="fa fa-twitter"></i></a>
+                            <a href="_blank" href="{{ $appSettings->facebook }}"><i class="fa fa-facebook"></i></a>
+                            <a href="_blank" href="{{ $appSettings->instagram }}"><i class="fa fa-instagram"></i></a>
+                            <a href="_blank" href="{{ $appSettings->youtube }}"><i class="fa fa-youtube"></i></a>
                         </div>
                     </div>
                 </div>

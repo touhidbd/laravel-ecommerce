@@ -84,7 +84,7 @@
                     </div>        
                     
                     <div class="col-lg-12 custom-pagination">
-                        {{-- {{ $products->links() }} --}}
+                        {{ $products->links() }}
                     </div>
                 </div>                
             
