@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\OrdersController;
 use App\Http\Controllers\Admin\SliderController;
@@ -102,6 +103,14 @@ Route::prefix('admin')->middleware('auth', 'isAdmin')->group(function(){
 
         Route::get('/invoice/{order_id}', 'viewInvoice');
         Route::get('/invoice/{order_id}/generate', 'generateInvoice');
+    });
+
+    Route::controller(UserController::class)->group(function() {
+        Route::get('/users', 'index');
+        Route::post('/users', 'store');
+        Route::get('/user/{user_id}/edit', 'edit');
+        Route::post('/users/{user_id}', 'update');
+        Route::get('/add-user', 'create');
     });
 
     // Color

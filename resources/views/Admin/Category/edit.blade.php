@@ -4,6 +4,15 @@
 @section('content')
 <div class="row">
     <div class="col-md-12">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <div class="card">
             <div class="card-header py-3 d-flex justify-content-between align-items-center">
                 <h4 class="cart-title m-0">Edit Category</h4>
