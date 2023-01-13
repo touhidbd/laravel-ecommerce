@@ -116,7 +116,7 @@ class FrontendController extends Controller
             $featured_product = Product::where('status', '0')->where('trending', '1')->inRandomOrder()->first();
             $categories = Categories::where('status', '0')->get();
             $brands = Brands::where('status', '0')->get();
-            $products = Product::where('name', 'LIKE', '%'.$request->s.'%')->latest()->paginate(1);
+            $products = Product::where('name', 'LIKE', '%'.$request->s.'%')->latest()->paginate(9);
 
             return view('frontend.pages.search', compact('featured_product', 'categories', 'brands', 'products'));
         }
@@ -124,6 +124,5 @@ class FrontendController extends Controller
         {
             return redirect()->back()->with('status', 'Empty search!');
         }
-
     }
 }

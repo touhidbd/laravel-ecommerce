@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Frontend\ProfileController;
 use App\Http\Controllers\Frontend\WishlistContoller;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\FrontendController;
@@ -40,15 +41,25 @@ Route::controller(FrontendController::class)->group(function() {
     Route::get('/search', 'searchProduct');
 });
 
-// Wishlist
+
 Route::middleware(['auth'])->group(function () {
+
+    // Wishlist
     Route::get('/wishlist', [WishlistContoller::class, 'index']);
+
+    // Cart
     Route::get('/cart', [CartContoller::class, 'index']);
+
+    //Checkout
     Route::get('/checkout', [CheckoutController::class, 'index']);
 
     // Orders
     Route::get('/orders', [OrderController::class, 'index']);
     Route::get('/orders/{order_id}', [OrderController::class, 'show']);
+
+    // Profile
+    Route::get('/profile', [ProfileController::class, 'index']);
+    Route::post('/profile', [ProfileController::class, 'update']);
 });
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
