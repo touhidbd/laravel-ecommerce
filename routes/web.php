@@ -34,7 +34,10 @@ Route::controller(FrontendController::class)->group(function() {
     Route::get('/thank-you', 'thankyou');
 
     // New Arrivals
-    Route::get('/new-arrivals', 'newArrivals');        
+    Route::get('/new-arrivals', 'newArrivals');   
+    
+    // Search Page
+    Route::get('/search', 'searchProduct');
 });
 
 // Wishlist

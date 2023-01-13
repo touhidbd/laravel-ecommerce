@@ -11,8 +11,10 @@
             </div>
             <div class="col-md-6">
                 <div class="search">
-                    <input type="text" placeholder="Search">
-                    <button><i class="fa fa-search"></i></button>
+                    <form action="{{ url('search') }}" method="GET">
+                        <input type="text" placeholder="Search" value="{{ Request::get('s') }}" name="s">
+                        <button type="submit"><i class="fa fa-search"></i></button>
+                    </form>
                 </div>
             </div>
             <div class="col-md-3">
@@ -78,18 +80,6 @@
                     <a href="index.html" class="nav-item nav-link active">Home</a>
                     <a href="{{ url('/collections') }}" class="nav-item nav-link">Collections</a>
                     <a href="{{ url('/new-arrivals') }}" class="nav-item nav-link">New Arrivals</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
-                        <div class="dropdown-menu">
-                            <a href="product-list.html" class="dropdown-item">Product</a>
-                            <a href="product-detail.html" class="dropdown-item">Product Detail</a>
-                            <a href="cart.html" class="dropdown-item">Cart</a>
-                            <a href="wishlist.html" class="dropdown-item">Wishlist</a>
-                            <a href="checkout.html" class="dropdown-item">Checkout</a>
-                            <a href="login.html" class="dropdown-item">Login & Register</a>
-                            <a href="my-account.html" class="dropdown-item">My Account</a>
-                        </div>
-                    </div>
                     <a href="{{ url('contact-us') }}" class="nav-item nav-link">Contact Us</a>
                 </div>
             </div>
