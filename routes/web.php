@@ -60,6 +60,10 @@ Route::middleware(['auth'])->group(function () {
     // Profile
     Route::get('/profile', [ProfileController::class, 'index']);
     Route::post('/profile', [ProfileController::class, 'update']);
+
+    // Change Password
+    Route::get('/change-password', [ProfileController::class, 'passwordCreate']);
+    Route::post('/change-password', [ProfileController::class, 'changePasseord']);
 });
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');

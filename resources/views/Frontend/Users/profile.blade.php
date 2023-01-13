@@ -27,15 +27,16 @@
                 @endif          
                 @if ($errors->any())
                     <ul class="alert alert-danger">
-                        @foreach ($errors as $error)
+                        @foreach ($errors->all() as $error)
                             <li class="text-danger">{{ $error }}</li>
                         @endforeach
                     </ul>
                 @endif
 
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header d-flex justify-content-between align-items-center">
                         <h6 class="mb-0">Profile Details</h6>
+                        <a href="{{ url('/change-password') }}" class="btn btn-warning text-white">Change Password</a>
                     </div>
                     <div class="card-body">
                         <form action="{{ url('/profile') }}" method="POST">

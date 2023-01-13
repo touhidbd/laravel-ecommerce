@@ -38,10 +38,9 @@
                         <div class="dropdown-menu">
                             @if (Auth::user()->role_as == 1)
                             <a href="{{ url('admin/dashboard') }}" class="dropdown-item">{{ __('Dashboard') }}</a>
-                            @endif                            
-
-                            <a href="{{ url('profile') }}" class="dropdown-item">{{ __('My Prfile') }}</a>
-                            <a href="{{ url('orders') }}" class="dropdown-item">{{ __('My Orders') }}</a>
+                            @endif                             
+                            <a href="{{ url('orders') }}" class="dropdown-item">{{ __('My Orders') }}</a><a href="{{ url('profile') }}" class="dropdown-item">{{ __('My Prfile') }}</a>
+                            <a href="{{ url('change-password') }}" class="dropdown-item">{{ __('Change Password') }}</a>
                             <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
