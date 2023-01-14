@@ -7,6 +7,7 @@ use App\Models\Order;
 use Livewire\Component;
 use App\Models\OrderItem;
 use Illuminate\Support\Str;
+use App\Mail\PlaceOrderMailable;
 use App\Mail\InvoiceOrderMailable;
 use Illuminate\Support\Facades\Mail;
 
@@ -20,35 +21,6 @@ class Index extends Component
         'validationForAll',
         'transactionEmit' => 'PayOnline'
     ];
-
-    public function PayOnline($value)
-    {
-        $this->payment_id = $value;
-        $this->payment_mode = 'Paid by Paypal';
-
-        $onlineorder = $this->placeOrder();
-        if($onlineorder)
-        {
-            Cart::where('user_id', auth()->user()->id)->delete();
-
-            session()->flash('status', 'Order place successfully!');
-            $this->dispatchBrowserEvent('message', [
-                'text'      => 'Order place successfully!',
-                'type'      => 'success',
-                'status'    => 200
-            ]);
-            return redirect()->to('thank-you');
-        }
-        else
-        {
-            session()->flash('status', 'Something went wrong!');
-            $this->dispatchBrowserEvent('message', [
-                'text'      => 'Something went wrong!',
-                'type'      => 'error',
-                'status'    => 500
-            ]);
-        }
-    }
 
     public function validationForAll()
     {
@@ -119,6 +91,42 @@ class Index extends Component
         return $order;
     }
 
+    public function PayOnline($value)
+    {
+        $this->payment_id = $value;
+        $this->payment_mode = 'Paid by Paypal';
+
+        $onlineorder = $this->placeOrder();
+        if($onlineorder)
+        {
+            Cart::where('user_id', auth()->user()->id)->delete();
+
+            try {
+                $order = Order::findOrFail($onlineorder->id);
+                Mail::to($order->email)->send(new PlaceOrderMailable($order));
+            } catch (\Exception $e) {
+
+            }
+
+            session()->flash('status', 'Order place successfully!');
+            $this->dispatchBrowserEvent('message', [
+                'text'      => 'Order place successfully!',
+                'type'      => 'success',
+                'status'    => 200
+            ]);
+            return redirect()->to('thank-you');
+        }
+        else
+        {
+            session()->flash('status', 'Something went wrong!');
+            $this->dispatchBrowserEvent('message', [
+                'text'      => 'Something went wrong!',
+                'type'      => 'error',
+                'status'    => 500
+            ]);
+        }
+    }
+
     public function codOrder()
     {
         $this->validate();
@@ -127,6 +135,13 @@ class Index extends Component
         if($codOrder)
         {
             Cart::where('user_id', auth()->user()->id)->delete();
+
+            try {
+                $order = Order::findOrFail($codOrder->id);
+                Mail::to($order->email)->send(new PlaceOrderMailable($order));
+            } catch (\Exception $e) {
+
+            }
 
             session()->flash('status', 'Order place successfully!');
             $this->dispatchBrowserEvent('message', [
@@ -152,6 +167,12 @@ class Index extends Component
         $this->carts = Cart::where('user_id', auth()->user()->id)->get();
         $this->name = auth()->user()->name;
         $this->email = auth()->user()->email;
+        $this->phone = auth()->user()->userDetail->phone;
+        $this->address = auth()->user()->userDetail->address;
+        $this->country = auth()->user()->userDetail->country;
+        $this->city = auth()->user()->userDetail->city;
+        $this->state = auth()->user()->userDetail->state;
+        $this->zip = auth()->user()->userDetail->zip;
         return view('livewire.frontend.checkout.index', [
             'carts' => $this->carts
         ]);
