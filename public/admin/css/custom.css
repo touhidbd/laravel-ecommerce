@@ -50,3 +50,7 @@ img {
 .cart-content ul li strong {
     float: right;
 }
+
+.sidebar .nav.sub-menu .nav-item .nav-link.active {
+    color: #4d83ff;
+}

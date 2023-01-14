@@ -7,6 +7,8 @@ use App\Models\Order;
 use Livewire\Component;
 use App\Models\OrderItem;
 use Illuminate\Support\Str;
+use App\Mail\InvoiceOrderMailable;
+use Illuminate\Support\Facades\Mail;
 
 class Index extends Component
 {
@@ -87,6 +89,7 @@ class Index extends Component
         ]);
 
         $cart_list = Cart::where('user_id', auth()->user()->id)->get();
+
         foreach($cart_list as $cartItem)
         {            
             if($cartItem->product->selling_price) {
@@ -110,7 +113,6 @@ class Index extends Component
             else
             {
                 $cartItem->product->where('id', $cartItem->product_id)->decrement('quantity', $cartItem->quantity);
-
             }
         }
 
