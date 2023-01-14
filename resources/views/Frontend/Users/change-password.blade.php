@@ -37,7 +37,7 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h6 class="mb-0">Change Password</h6>
-                        <a href="{{ url('/change-password') }}" class="btn btn-warning text-white">Profile Details</a>
+                        <a href="{{ url('/profile') }}" class="btn btn-warning text-white">Profile Details</a>
                     </div>
                     <div class="card-body">
                         <form action="{{ url('/change-password') }}" method="POST">

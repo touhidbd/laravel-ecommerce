@@ -61,7 +61,7 @@ class ProfileController extends Controller
         ]);
 
         $currentPasswordStatus = Hash::check($request->current_password, auth()->user()->password);
-        
+
         if($currentPasswordStatus)
         {
             User::findOrFail(Auth::user()->id)->update([

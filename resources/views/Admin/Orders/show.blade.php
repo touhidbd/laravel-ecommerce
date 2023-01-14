@@ -4,24 +4,20 @@
 @section('content')
 <div class="row">
     <div class="col-md-12">
-        @if (session()->has('status')) 
-        <div class="alert alert-success" role="alert">
-            {{ session("status") }}
-        </div>
-        @endif
         <div class="card">
             <div class="card-header py-3 d-flex justify-content-between align-items-center">
                 <h4 class="cart-title m-0">Order</h4>
                 <div class="btn-list">
                     <button type="button" onclick="printJS('{{ url('/admin/invoice/'.$order->id.'/generate') }}')" class="btn btn-sm me-2 text-white btn-success">Print Invoice</button>
                     <a href="{{ url('/admin/invoice/'.$order->id) }}" target="_blank" class="btn btn-sm me-2 text-white btn-primary">View Invoice</a>
-                    <a href="{{ url('/admin/invoice/'.$order->id.'/generate') }}" class="btn btn-sm me-2 text-white btn-warning">Download Invoice</a>
-                    <a href="{{ url('/admin/orders') }}" class="btn btn-sm btn-info">Back</a>                    
+                    <a href="{{ url('/admin/invoice/'.$order->id.'/generate') }}" class="btn btn-sm me-2 text-white btn-danger">Download Invoice</a>
+                    <a href="{{ url('/admin/invoice/'.$order->id.'/mail') }}" class="btn btn-sm me-2 text-white btn-warning">Send Email Invoice</a>
+                    <a href="{{ url('/admin/orders') }}" class="btn btn-sm btn-info">Back</a>
                 </div>
 
             </div>
             <div class="card-body">
-                <div class="row">              
+                <div class="row">
                     <div class="col-md-6">
                         <div class="cart-summary">
                             <div class="cart-content">
@@ -50,7 +46,7 @@
                                     <li>Tracking No: <strong>{{ $order->tracking_no }}</strong></li>
                                     <li>Order Created Date: <strong>{{ $order->created_at->format('d-m-Y') }}</strong></li>
                                     <li>Payment Mode: <strong>{{ $order->payment_mode }}</strong></li>
-                                    <li>Order Status: 
+                                    <li>Order Status:
                                         <strong>
                                             @if ($order->status == 0)
                                             <span class="badge badge-primary">Pending</span>
@@ -71,7 +67,7 @@
                                 </ul>
                             </div>
                         </div>
-                    </div>  
+                    </div>
                 </div>
                 <div class="row mt-5">
                     <div class="col-md-12">
@@ -91,14 +87,14 @@
                                     @php
                                         $allitemsprice = 0;
                                     @endphp
-                                    @foreach ($orderitems as $orderitem)                                
+                                    @foreach ($orderitems as $orderitem)
                                     @php
                                         if($orderitem->product->selling_price){
                                             $price = $orderitem->product->selling_price;
                                         } else {
                                             $price = $orderitem->product->orginal_price;
                                         }
-    
+
                                         $total_price = $price*$orderitem->quantity;
                                         $allitemsprice += $total_price;
                                     @endphp
@@ -107,7 +103,7 @@
                                         <td><img src="{{ asset($orderitem->product->productImages[0]->image) }}" alt=""></td>
                                         <td>{{ $orderitem->quantity }}</td>
                                         <td>${{$price}}x{{$orderitem->quantity}} = ${{ $total_price }}</td>
-                                    </tr>                                    
+                                    </tr>
                                     @endforeach
                                 </tbody>
                                 <tbody>
@@ -123,7 +119,7 @@
                 <form action="{{ url('admin/order/'.$order->id) }}" method="POST">
                     @csrf
                     <div class="row mt-5">
-                        <div class="col-md-12">                        
+                        <div class="col-md-12">
                             <h3>Order Action:</h3>
                             <hr>
                         </div>
@@ -165,8 +161,8 @@
 
 @section('scripts')
 <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
-@if (session('status')) 
-<script>    
+@if (session('status'))
+<script>
     Swal.fire({
         icon: 'success',
         showConfirmButton: false,

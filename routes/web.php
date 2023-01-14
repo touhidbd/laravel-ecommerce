@@ -1,9 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\OrdersController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Frontend\CartContoller;
@@ -19,14 +19,14 @@ use App\Http\Controllers\Frontend\FrontendController;
 Auth::routes();
 
 // Front End
-Route::controller(FrontendController::class)->group(function() {
+Route::controller(FrontendController::class)->group(function () {
 
     // Pages
-    Route::get('/', 'index');    
+    Route::get('/', 'index');
     Route::get('/contact-us', 'contact');
     Route::post('/contact', 'send_mail');
 
-    // Collection    
+    // Collection
     Route::get('/collections', 'categories');
     Route::get('/collections/{category_slug}', 'products');
     Route::get('/collections/{category_slug}/{product_slug}', 'productView');
@@ -35,8 +35,8 @@ Route::controller(FrontendController::class)->group(function() {
     Route::get('/thank-you', 'thankyou');
 
     // New Arrivals
-    Route::get('/new-arrivals', 'newArrivals');   
-    
+    Route::get('/new-arrivals', 'newArrivals');
+
     // Search Page
     Route::get('/search', 'searchProduct');
 });
@@ -68,7 +68,7 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::prefix('admin')->middleware('auth', 'isAdmin')->group(function(){
+Route::prefix('admin')->middleware('auth', 'isAdmin')->group(function () {
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index']);
 
@@ -106,7 +106,7 @@ Route::prefix('admin')->middleware('auth', 'isAdmin')->group(function(){
         Route::post('/product-color/{color_id}/delete', 'deleteProductColor');
     });
 
-    Route::controller(SliderController::class)->group(function() {
+    Route::controller(SliderController::class)->group(function () {
         Route::get('/sliders', 'index');
         Route::get('/add-slider', 'create');
         Route::post('/slider', 'store');
@@ -114,16 +114,17 @@ Route::prefix('admin')->middleware('auth', 'isAdmin')->group(function(){
         Route::put('/slider/{slider}', 'update');
     });
 
-    Route::controller(OrdersController::class)->group(function() {
+    Route::controller(OrdersController::class)->group(function () {
         Route::get('/orders', 'index');
         Route::get('/order/{order_id}', 'view');
         Route::post('/order/{order_id}', 'update');
 
         Route::get('/invoice/{order_id}', 'viewInvoice');
         Route::get('/invoice/{order_id}/generate', 'generateInvoice');
+        Route::get('/invoice/{order_id}/mail', 'mailInvoice');
     });
 
-    Route::controller(UserController::class)->group(function() {
+    Route::controller(UserController::class)->group(function () {
         Route::get('/users', 'index');
         Route::post('/users', 'store');
         Route::get('/user/{user_id}/edit', 'edit');

@@ -172,7 +172,7 @@
             @php
                 $allitemsprice = 0;
             @endphp
-            @foreach ($orderitems as $orderitem)                               
+            @foreach ($order->orderItems as $orderitem)                               
             @php
                 if($orderitem->product->selling_price){
                     $price = $orderitem->product->selling_price;
