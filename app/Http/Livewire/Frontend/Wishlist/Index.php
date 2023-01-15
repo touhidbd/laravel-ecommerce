@@ -11,7 +11,7 @@ class Index extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
-    
+
     public $wishlist_id;
 
     public function removeproduct($wishlist_id)
@@ -36,11 +36,11 @@ class Index extends Component
             {
                 session()->flash('status', 'Product not found!');
                 $this->dispatchBrowserEvent('message', [
-                    'text'      => 'Proudct not found!',
+                    'text'      => 'Product not found!',
                     'type'      => 'error',
                     'status'    => 404
                 ]);
-                return false; 
+                return false;
             }
         }
         else
