@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Brands;
+use App\Models\Rating;
 use App\Models\Categories;
 use App\Models\ProductColor;
 use App\Models\ProductImage;
@@ -57,5 +58,10 @@ class Product extends Model
     public function category()
     {
         return $this->belongsTo(Categories::class, 'category_id', 'id');
+    }
+
+    public function rating()
+    {
+        return $this->hasMany(Rating::class, 'product_id', 'id');
     }
 }

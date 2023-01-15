@@ -212,3 +212,34 @@ button:focus {
 .cart-content ul li strong {
     float: right;
 }
+
+.ratting input {
+    display: none;
+}
+
+.ratting label:before {
+    content: "\f006";
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.product-detail .tab-content .reviews-submit .ratting-labels {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: start;
+}
+
+.ratting-labels label {
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.ratting-labels label:hover:before,
+.ratting-labels label:hover~label:before,
+.ratting-labels input:checked~label:before {
+    content: "\f005";
+}

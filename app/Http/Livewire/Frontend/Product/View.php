@@ -3,7 +3,9 @@
 namespace App\Http\Livewire\Frontend\Product;
 
 use App\Models\Cart;
+use App\Models\Order;
 use App\Models\Brands;
+use App\Models\Rating;
 use App\Models\Product;
 use Livewire\Component;
 use App\Models\Wishlist;
@@ -13,6 +15,8 @@ use Illuminate\Support\Facades\Auth;
 class View extends Component
 {
     public $category, $product, $featured_product, $product_id, $quantityCount = 1, $productColorSelectedQuantity, $productColorId;
+
+    public $rating, $review;
     
     public function mount($product, $category, $featured_product)
     {
@@ -273,11 +277,101 @@ class View extends Component
         }
     }
 
+    public function rules()
+    {
+        return [
+            'rating'                => 'required|integer',
+            'review'                => 'nullable|string|max:500',
+        ];
+    }
+
+    public function resetInput()
+    {
+        $this->rating = NULL;
+        $this->review = NULL;
+    }
+
+    public function storeRatting()
+    {
+        $this->validate();        
+        
+        $product_check = Product::where('id', $this->product->id)->where('status', '0')->first();
+        if($product_check)
+        {
+            $verified_purchase = Order::where('order.user_id', Auth::id())
+                                ->join('order_items', 'order.id', 'order_items.order_id')
+                                ->where('order_items.product_id', $this->product->id)->get();
+
+            if($verified_purchase->count() > 0)
+            {
+                $existsing_rating = Rating::where('user_id', Auth::id())->where('product_id', $this->product->id)->first();
+                if($existsing_rating)
+                {
+                    $existsing_rating->rating = $this->rating;
+                    $existsing_rating->review = $this->review;
+                    $existsing_rating->update();
+
+                    
+
+                    session()->flash('status', 'Product rating update successfully!');
+                    $this->dispatchBrowserEvent('message', [
+                        'text'      => 'Product rating update successfully!',
+                        'type'      => 'info',
+                        'status'    => 200
+                    ]);
+                    $this->dispatchBrowserEvent('comment-updated');
+                    $this->resetInput();
+                }
+                else
+                {
+                    Rating::create([
+                        'user_id'           => Auth::id(),
+                        'product_id'        => $this->product->id,
+                        'rating'            => $this->rating,
+                        'review'            => $this->review
+                    ]);
+
+                    session()->flash('status', 'Product rated successfully!');
+                    $this->dispatchBrowserEvent('message', [
+                        'text'      => 'Product rated successfully!',
+                        'type'      => 'success',
+                        'status'    => 200
+                    ]);
+                    $this->resetInput();
+                }
+            }
+            else
+            {
+                session()->flash('status', 'You are not purchase this product!');
+                $this->dispatchBrowserEvent('message', [
+                    'text'      => 'You are not purchase this product!',
+                    'type'      => 'error',
+                    'status'    => 404
+                ]);
+                $this->resetInput();
+            }
+
+        }
+    }
+
     public function render()
     {
         $categories = Categories::where('status', '0')->limit(6)->get();
         $brands = Brands::where('status', '0')->limit(6)->get();
         $products = Product::where('category_id', $this->category->id)->where('id', '!=', $this->product->id)->where('status', '0')->get();
+
+        $ratings = Rating::where('product_id', $this->product->id)->get();
+        $ratings_sum = Rating::where('product_id', $this->product->id)->sum('rating');
+        $user_rating = Rating::where('product_id', $this->product->id)->where('user_id', Auth::id())->first();
+        $reviews = Rating::where('product_id', $this->product->id)->get();
+        if($ratings->count() > 0)
+        {
+            $ratings_value = $ratings_sum / $ratings->count();
+        }
+        else 
+        {
+            $ratings_value = 0;
+        }
         
         return view('livewire.frontend.product.view', [
             'product' => $this->product,
@@ -286,6 +380,7 @@ class View extends Component
             'brands' => $brands,
             'products' => $products,
             'categories' => $categories,
+            'ratings_value' => $ratings_value
         ]);
     }
 }

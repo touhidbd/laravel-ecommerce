@@ -167,12 +167,6 @@ class Index extends Component
         $this->carts = Cart::where('user_id', auth()->user()->id)->get();
         $this->name = auth()->user()->name;
         $this->email = auth()->user()->email;
-        $this->phone = auth()->user()->userDetail->phone;
-        $this->address = auth()->user()->userDetail->address;
-        $this->country = auth()->user()->userDetail->country;
-        $this->city = auth()->user()->userDetail->city;
-        $this->state = auth()->user()->userDetail->state;
-        $this->zip = auth()->user()->userDetail->zip;
         return view('livewire.frontend.checkout.index', [
             'carts' => $this->carts
         ]);

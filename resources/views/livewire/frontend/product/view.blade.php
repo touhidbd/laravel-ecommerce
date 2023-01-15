@@ -41,11 +41,20 @@
                             <div class="product-content">
                                 <div class="title"><h2>{{ $product->name }}</h2></div>
                                 <div class="ratting">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
+                                    @if ($product->rating->count() > 0)
+                                        @php
+                                            $rate_number = number_format($ratings_value);
+                                        @endphp
+                                        @for($i = 1; $i <= $rate_number; $i++)
+                                        <i class="fa fa-star"></i>
+                                        @endfor
+                                        @for($j = $rate_number+1; $j <= 5; $j++)
+                                        <i class="fa fa-star-o"></i>         
+                                        @endfor 
+                                    @else
+                                        No review yet!                                        
+                                    @endif
+
                                 </div>
                                 @if ($product->selling_price)
                                 <div class="price">${{ $product->selling_price }} <span>${{ $product->orginal_price }}</span></div>
@@ -107,14 +116,14 @@
                         </div>
                     </div>
                     
-                    <div class="row product-detail-bottom">
+                    <div class="row product-detail-bottom" wire:ignore>
                         <div class="col-lg-12">
                             <ul class="nav nav-pills nav-justified">
                                 <li class="nav-item">
                                     <a class="nav-link active" data-toggle="pill" href="#description">Description</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="pill" href="#reviews">Reviews (1)</a>
+                                    <a class="nav-link" data-toggle="pill" href="#reviews">Reviews ({{ $product->rating->count() }})</a>
                                 </li>
                             </ul>
 
@@ -124,43 +133,68 @@
                                     {!! $product->description !!}
                                 </div>
                                 <div id="reviews" class="container tab-pane fade"><br>
-                                    <div class="reviews-submitted">
-                                        <div class="reviewer">Phasellus Gravida - <span>01 Jan 2020</span></div>
-                                        <div class="ratting">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                        <p>
-                                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.
-                                        </p>
+                                    <div class="reviewlist">
+                                        @forelse ($product->rating as $review)
+                                            <div class="reviews-submitted">
+                                                <div class="reviewer">{{ $review->user->name }} - <span>{{ $review->updated_at->format('d M Y') }}</span></div>
+                                                <div class="ratting">
+                                                    @php
+                                                        $review_rate_number = number_format($review->rating);
+                                                    @endphp
+                                                    @for($i = 1; $i <= $review_rate_number; $i++)
+                                                        <i class="fa fa-star"></i>
+                                                    @endfor
+                                                    @for($j = $review_rate_number+1; $j <= 5; $j++)
+                                                        <i class="fa fa-star-o"></i>         
+                                                    @endfor 
+                                                </div>
+                                                <p>
+                                                    {{ $review->review }}
+                                                </p>
+                                            </div>                                        
+                                        @empty
+                                        <h4 class="text-danger">This product has no review!</h4>
+                                        @endforelse                                        
                                     </div>
-                                    <div class="reviews-submit">
-                                        <h4>Give your Review:</h4>
-                                        <div class="ratting">
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
+   
+                                    @guest
+                                        <h4 class="text-danger">You need to login to make a reivew!</h4>
+                                    @else
+                                        <div class="reviews-submit" wire:ignore.>
+                                            <h4>Give your Review:</h4>
+                                            <form wire:submit.prevent="storeRatting">
+                                                <div class="ratting">
+                                                    <div class="ratting-labels">
+                                                        <input type="radio" name="rating" value="5" id="rating-5" wire:model.defer="rating">
+                                                        <label for="rating-5"></label>
+
+                                                        <input type="radio" name="rating" value="4" id="rating-4" wire:model.defer="rating">
+                                                        <label for="rating-4"></label>
+
+                                                        <input type="radio" name="rating" value="3" id="rating-3" wire:model.defer="rating">
+                                                        <label for="rating-3"></label>
+
+                                                        <input type="radio" name="rating" value="2" id="rating-2" wire:model.defer="rating">
+                                                        <label for="rating-2"></label>
+
+                                                        <input type="radio" name="rating" value="1" id="rating-1" wire:model.defer="rating">
+                                                        <label for="rating-1"></label>
+                                                    </div>                                                
+                                                </div>
+                                                <div class="row form">
+                                                    <div class="col-sm-12">
+                                                        <textarea placeholder="Write a review" wire:model.defer="review"></textarea>
+                                                        @error('review')
+                                                            <p class="small text-danger">{{ $message }}</p>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <button type="submit">Submit</button>
+                                                    </div>
+                                                </div>                                            
+                                            </form>
                                         </div>
-                                        <div class="row form">
-                                            <div class="col-sm-6">
-                                                <input type="text" placeholder="Name">
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <input type="email" placeholder="Email">
-                                            </div>
-                                            <div class="col-sm-12">
-                                                <textarea placeholder="Review"></textarea>
-                                            </div>
-                                            <div class="col-sm-12">
-                                                <button>Submit</button>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @endguest
                                 </div>
                             </div>
                         </div>
@@ -290,6 +324,10 @@
                 "autoPlay": true,
                 "autoPlayTimeout": 2000            
             });
+        });
+
+        window.addEventListener('comment-updated', event => {
+            $('.reviewlist').load(location.href + " .reviewlist");
         });
     </script>
 @endsection
